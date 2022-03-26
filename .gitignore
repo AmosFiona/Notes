@@ -1,0 +1,13 @@
+/TODO
+
+Latex/TODO
+Latex/**/*.aux
+Latex/**/*.fdb_latexmk
+Latex/**/*.fls
+Latex/**/*.log
+Latex/**/*.synctex.gz
+Latex/**/*.xdv
+Latex/**/*.pdf
+
+Markdowns/TODO
+Markdowns/**/*.pdf
