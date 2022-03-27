@@ -151,8 +151,8 @@ mesa 是所有开源显卡驱动的基础，一般情况下都需要安装
     	  # Default settings
     	  zsh=${zsh:~/.oh-my-zsh}
     	- REPO=${REPO:-oh-my-zsh/ohmyzsh}
-    	- REMOTE=${REMOTE:-https://github.com/${REPO}.git}
     	+ REPO=${REPO:-mirrors/ohmyzsh}
+    	- REMOTE=${REMOTE:-https://github.com/${REPO}.git}
     	+ REMOTE=${REMOTE:-https://gitee.com/${REPO}.git}
     	  BRANCH=${BRANCH:-master}
     $./install.sh
@@ -218,4 +218,7 @@ mesa 是所有开源显卡驱动的基础，一般情况下都需要安装
 
     $sudo pacman -S tlp tlp-rdw
     #TODO descripe the research
-    <++>
+
+## 安装浏览器
+
+    $sudo pacman -S chromium

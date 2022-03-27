@@ -11,3 +11,6 @@ Latex/**/*.pdf
 
 Markdowns/TODO
 Markdowns/**/*.pdf
+
+
+clean.sh

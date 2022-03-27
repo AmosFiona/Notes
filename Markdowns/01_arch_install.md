@@ -219,13 +219,10 @@ ESSID 及 ESSID_password 是 1.5.3 步骤搜索出来的无线网络名称及对
 
 1.7.6 写入刚分区方案
 
-````
+```
     $commad(m for help):w<CR>
-    ```
     descrip /dev structures
-    ```
-
-````
+```
 
 1.7.6 设定各分区的格式
 
@@ -314,6 +311,14 @@ ESSID 及 ESSID_password 是 1.5.3 步骤搜索出来的无线网络名称及对
 
 ```
 
+若是安装下载内核后只有 kb 或者不足 100MB,需要停止 reflector 服务
+
+```
+	$systemctl stop reflector.service
+	$reflector --country China --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+
+```
+
 2.7 配置系统
 
 2.7.1 生成 fstab 文件(UUID 卷标)
@@ -353,7 +358,7 @@ ESSID 及 ESSID_password 是 1.5.3 步骤搜索出来的无线网络名称及对
 2.7.6 设定系统语言
 
 ```
-    $nvim /mnt/etc/locale.gen
+    $nvim /etc/locale.gen
     [/en_US]
     - #en_US.UTF-8 UTF-8
     + en_US.UTF-8 UTF-8
@@ -501,51 +506,3 @@ ESSID 及 ESSID_password 是 1.5.3 步骤搜索出来的无线网络名称及对
 ```
 
 备注：进入系统后，默认的管理员账户为 root,密码是 2.10 步骤设定的密码(本文案例密码：031588u)
-
-| --- | --- |
-| --- | --- |
-|     | -   |
-| --- | --- |
-| -   | -   |
-|     | -   |
-| --- | --- |
-| -   | -   |
-|     | -   |
-| --- | --- |
-| -   | -   |
-|     | -   |
-| --- | --- |
-| -   | -   |
-
-## install coc.nvim
-
-2022-03-21 03:31:41
-
-### 目录结构：
-
-```
-$HOME
- .config
- 	nvim
-		plugged
-			coc.vim "vim插件"
-		coc-settings.json  "coc插件相关配置"
-	coc
-		coc-extensions "coc插件安装的位置目录"
-		ultisnips
-
-```
-
-解释说明:\
-1.通过 vim-plug 插件管理器安装 coc 自动补全插件：\
-coc.vim 是作为 nvim 的插件,如同 vim-plug 一样是一个管理 coc 插件的管理器
-
-2.:CocInstall coc-json coc-tsserver\
-coc-extensions 是通过 coc 插件进行安装的 vim 功能插件(常用的代码自动补全)
-
-3.:CocConfig 生成 coc-settings.json 文件\
-coc-settings.json 是配置 coc 插件的相关参数开关以及 coc 插件管理
-
-4.此时 vim 下的补全环境工具安装完成但是无法使用，没有告诉 coc 想要自动补全的编程语言是什么.若想在 vim 中获取自动补全需要安装 Language Server Port(LSP)
-
-### 配置参数

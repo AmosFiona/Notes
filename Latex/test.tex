@@ -1,8 +1,15 @@
 
 \documentclass{article}
+
 \usepackage{ctex}
+
 \usepackage{amsmath}
+
 \usepackage{zhlipsum}
+
+\usepackage{tikz,tkz-euclide}
+\usetikzlibrary{calc}
+
 
 \title{A LaTex Example}
 \author{Fiona@CXW}
@@ -11,9 +18,32 @@
 
 \maketitle
 \zhlipsum[3][name=zhufu]
-\section{Mode1}
-This is an equation (\ref{eq:1}) and the picture is shown in Fig.
 
-$$ \sqrt{x^3} $$
+\begin{tikzpicture}[scale=1.2]
+
+	\coordinate(A)at(0,0);
+	\coordinate(B)at(5,0);
+	\coordinate(C)at(3,4);
+
+	\tkzDefTriangleCenter[in](A,B,C)
+	\tkzGetPoint{I}
+	\tkzDrawPoint(I)
+	\tkzLabelPoints[left](A)
+	\tkzLabelPoints[right](B,I)
+	\tkzLabelPoints[above](C)
+
+	\draw(A)--(B)--(C)--cycle;
+	\coordinate(D)at($(C)!1.5!(I)$);
+	\draw(C)--(D);
+
+	\tkzMarkAngle[size=0.7,mark=none](I,C,B)
+	\tkzMarkAngle[arc=lll,size=0.7,mark=none](A,C,I)
+	\tkzLabelAngle[pos=0.95](A,C,I){1}
+	\tkzLabelAngle[pos=0.9](I,C,B){2}
+
+
+\end{tikzpicture}
+
+
 
 \end{document}
