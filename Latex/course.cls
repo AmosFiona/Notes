@@ -1,35 +1,39 @@
 \NeedsTeXFormat{LaTeX2e}
-
 \ProvidesClass{course}
-
+%\LoadClass[fontset=none]{ctexbook}
 \LoadClass{ctexbook}
 
-\defaultfontfeatures{Mapping=fullwidth-stop}
 
 
-% Fonts
-\RequirePackage{xeCJK}
+% Fonts -CN
+%RequirePackage{xeCJK}
 \setCJKfamilyfont{fsong}{Source Han Serif CN}
 \def\StandardArial{\CJKfamily{fsong}}
 
 	\xeCJKsetup{PunctStyle=kaiming}
+	%\xeCJKsetup{PunctFamily=zhsong} % setting by xeCJK
 	\xeCJKsetup{CJKmath}
 	\xeCJKsetup{CheckSingle}
 
-	%\setmainfont{Source Han Serif CN}
+	%\setCJKmainfont[AutoFakeBold]{WenQuanYi Micro Hei}
+%\renewcommand\setCJKmainfont{Source Han Serif CN}
 
-%\setmainfont[BoldFont=Source Code Pro:style=Bold,BoldItalicFont=Source Code Pro:style=Italic]{Source Code Pro:style=Regular}
+% Auto change the end of lines to dot
+\defaultfontfeatures{Mapping=fullwidth-stop}
+
+% Fonts -En
+\setmainfont{Source Code Pro}
+\setsansfont{Source Code Pro}
+\setmonofont{Source Code Pro}
 %\setsansfont{B&H LucidaTypewriter:style=Sans}
 %\setmonofont{Droid Sans Mono:style=Regular}
-% mathmacro
-\RequirePackage{mathtools,amssymb,empheq,esvect}
 
-%\RequirePackage{amssymb}
-%
-%\RequirePackage{empheq}
-%
-%\RequirePackage{esvect}
-%
+% mathmacro
+\RequirePackage{ mathtools }
+\RequirePackage{ amssymb }
+\RequirePackage{ empheq }
+\RequirePackage{ esvect }
+
 \DeclareMathSizes{10.5bp}{10.5bp}{6.8pt}{6pt}
 
 % Page
@@ -165,6 +169,40 @@
 				},
 	}
 
+% enviroment for exercise
+\tcbset{
+	exercise/.style=
+		{
+			on line,
+			top=0mm,
+			bottom=0mm,
+			boxrule=0mm,
+			colback=gray!5,
+			fontupper=\bf,
+			left=0mm,
+			right=0mm
+		}
+	}
+	\newenvironment{exercises}
+	{
+		\begin{enumerate}
+		[
+			label =
+			{\tcbox[exercise]
+				{\makebox[2em]
+					{
+						\arabic*
+					}
+				}
+			},
+			labelindent=0em,
+			labelwidth=2em,
+			labelsep=0.2em,
+			leftmargin=2.2em
+		]
+	}{\end{enumerate}}
+
+
 % enumitem
 \RequirePackage{enumitem}
 \setenumerate
@@ -210,39 +248,6 @@
 			\hitem #4
 			\hitem #5
 	}{\end{hlist}}
-
-% enviroment for exercise
-\tcbset{
-	table/.style=
-		{
-			on line,
-			top=0mm,
-			bottom=0mm,
-			boxrule=0mm,
-			colback=gray!5,
-			fontupper=\bf,
-			left=0mm,
-			right=0mm
-		}
-	}
-	\newenvironment{exercises}
-	{
-		\begin{enumerate}
-		[
-			label =
-			{\tcbox[exercises]
-				{\makebox[2em]
-					{
-						\arabic*
-					}
-				}
-			},
-			labelindent=0em,
-			labelwidth=2em,
-			labelsep=0.2em,
-			leftmargin=2.2em
-		]
-	}{\end{enumerate}}
 
 % enviroment for examples
 \RequirePackage{fontawesome5}
@@ -418,3 +423,4 @@
 	}
 
 \endinput
+% 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

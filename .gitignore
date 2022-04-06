@@ -9,9 +9,9 @@ Latex/**/*.synctex.gz
 Latex/**/*.xdv
 Latex/**/*.pdf
 Latex/**/*.toc
+Latex/**/*.*(busy)
 
 Markdowns/TODO
 Markdowns/**/*.pdf
 
 
-clean.sh
