@@ -104,6 +104,13 @@
 		labelsep 		= 0 em,
 		leftmargin 	= 1.7 em
 	}
+\setdescription
+	{
+		itemsep 	= 0 pt,
+		partopsep = 0 pt,
+		parsep 		= \parskip,
+		topsep 		= 0 pt
+	}
 
 % colors boxder macro
 \RequirePackage[most]{tcolorbox}
@@ -171,13 +178,6 @@
 	}
 	{
 		\end{enumerate}
-	}
-\setdescription
-	{
-		itemsep 	= 0 pt,
-		partopsep = 0 pt,
-		parsep 		= \parskip,
-		topsep 		= 0 pt
 	}
 
 % Key and Difficulty Box

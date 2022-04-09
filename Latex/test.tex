@@ -9,7 +9,35 @@
 \usepackage{fontawesome5}
 \usepackage{tikz,tkz-euclide}
 \usetikzlibrary{calc}
+\usepackage{hlist}
 
+\newnvironment{options}[5][4]
+	{
+		\begin{hlist}
+			[	pre skip 		= 0 pt,
+				post skip 	= 0 pt,
+				label 			= \Alpha {hlisti}.,
+				pre label 	=,
+				item offset = 1.2 em,
+				col sep 		= 0.5 em
+			]#1%
+			\hitem #2%
+			\hitem #3%
+			\hitem #4%
+			\hitem #5%
+	}
+	{%
+		\end{hlist}
+	}
+
+\RequirePackage{ enumitem }
+\setenumerate
+	{
+		itemsep 	= 0 pt,
+		partopsep = 0 pt,
+		parsep 		= \parskip,
+		topsep 		= 0 pt
+	}
 
 \title{A LaTex Example}
 \author{Fiona@CXW}
@@ -50,6 +78,19 @@ there is a symbos
 
 \end{tikzpicture}
 
-
+\begin{enumerate}
+	\item 及数量大幅减对方对方的少了几分$jfsljflsjflslfsnnv$,$xcfjasfnflsfwofnkdnflsjl$
+		\begin{options}[4]
+			{12312}{343}
+			{fsdfs}{sdjisa}
+		\end{options}
+	\item $sdfsdfcvvbvcbcnbvmnbvvbxbxbxbbcb$
+		\begin{options}[4]
+			{1}
+			{0}
+			{6}
+			{2}
+		\end{options}
+\end{enumerate}%
 
 \end{document}

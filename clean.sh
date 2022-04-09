@@ -41,3 +41,14 @@ rm ./Latex/examples/*.synctex\(busy\)
 rm ./Latex/examples/*.xdv
 rm ./Latex/examples/*.pdf
 rm ./Latex/examples/*.toc
+
+rm ./Latex/EXAM/*.aux
+rm ./Latex/EXAM/*.fdb_latexmk
+rm ./Latex/EXAM/*.fls
+rm ./Latex/EXAM/*.log
+rm ./Latex/EXAM/*.synctex.gz
+rm ./Latex/EXAM/*.synctex\(busy\)
+rm ./Latex/EXAM/*.xdv
+rm ./Latex/EXAM/*.pdf
+rm ./Latex/EXAM/*.toc
+
