@@ -17,64 +17,74 @@
 	\xeCJKsetup{CJKmath}
 	\xeCJKsetup{CheckSingle}
 
-	%\setCJKmainfont[AutoFakeBold]{WenQuanYi Micro Hei}
-%\renewcommand\setCJKmainfont{Source Han Serif CN}
-
-% Auto change the end of lines to dot
-\defaultfontfeatures{Mapping=fullwidth-stop}
 
 % Fonts -En
 \setmainfont{Source Code Pro}
 \setsansfont{Source Code Pro}
 \setmonofont{Source Code Pro}
-%\setsansfont{B&H LucidaTypewriter:style=Sans}
-%\setmonofont{Droid Sans Mono:style=Regular}
+
+% Auto change the end of lines to dot
+\defaultfontfeatures{Mapping=fullwidth-stop}
 
 % mathmacro
 \RequirePackage{ mathtools }
+	\lineskiplimit=5pt
+	\lineskip=6pt
 \RequirePackage{ amssymb }
+	\delimiterfactor=800
 \RequirePackage{ empheq }
 \RequirePackage{ esvect }
 
 \DeclareMathSizes{10.5bp}{10.5bp}{6.8pt}{6pt}
 
+% catalog/contents
+\RequirePackage[titles]{tocloft}
+\renewcommand{\cftdot}{\LARGE$\cdot$}
+\renewcommand{\cftdotsep}{0.7}
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+
+% multicolumn
+\RequirePackage{multicol}
+\renewcommand\cfttocprehook{\begin{multicols}{2}}
+\renewcommand\cfttocposthook{\end{multicols}}
+
+% line gap
+\RequirePackage[bodytextleadingratio=1.5,restoremathleading=true]{zhlineskip}
+\SetMathEnvironmentSinglespace{1.1}
+
 % Page
 \RequirePackage{geometry}
-	\geometry
-		{
-			paperheight=29.7cm,
-			paperwidth=21cm,
-			width=17cm,
-			height=25.7cm,
-			left=1.8cm,
-			right=1.6cm,
-			top=1.5cm,
-			bottom=2.5cm,
-			headsep=3.2em,
-			marginparsep=-13.5em,
-			marginparwidth=13em,
-			reversemarginpar}
+\geometry
+	{
+		paperheight=29.7cm,
+		paperwidth=21cm,
+		width=17cm,
+		height=25.7cm,
+		left=1.8cm,
+		right=1.6cm,
+		top=1.5cm,
+		bottom=2.5cm,
+		headsep=3.2em,
+		marginparsep=-13.5em,
+		marginparwidth=13em,
+		reversemarginpar
+	}
 
 % Marginnote
-		%\usepackage{zhbianzhu}
-		%\usepackage[noadjust]{marginnote}
-		\RequirePackage[noadjust]{marginnote}
-		\renewcommand*{\raggedleftmarginnote}{}
-		\renewcommand*{\raggedrightmarginnote}{}
-		\renewcommand*{\marginfont}{\CTEXindent \kaishu}
+\RequirePackage[noadjust]{marginnote}
+	\renewcommand*{\raggedleftmarginnote}{}
+	\renewcommand*{\raggedrightmarginnote}{}
+	\renewcommand*{\marginfont}{\CTEXindent \StandardArial}
 
 % paracolumn
-		\RequirePackage{paracol}
-		\columnratio{0.3}
-		\setlength{\columnsep}{0.5em}
-		\setlength{\columnseprule}{0em}
-		\footnotelayout{m}
+\RequirePackage{paracol}
+	\columnratio{0.3}
+	\setlength{\columnsep}{0.5em}
+	\setlength{\columnseprule}{0em}
+	\footnotelayout{m}
 
 % Pictures
 \RequirePackage{graphicx}
-
-% refer numbers
-%\RequirePackage{zhshuzi}
 
 % color macro
 \RequirePackage{xcolor}
@@ -85,8 +95,24 @@
 
 % colors boxder macro
 \RequirePackage[most]{tcolorbox}
-	% postil
-	\newtcolorbox{postil}
+
+% formula emphasize
+\newtcbox{\eqmybox}
+	{
+		on line,
+		colback=gray!30,
+		colframe=black,
+		top=1mm,
+		bottom=0mm,
+		left=0mm,
+		right=0mm,
+		arc=3mm,
+		boxrule=0pt
+		% colback=gray!30
+	}
+
+% postil firmware
+\newtcolorbox{postil}
 	{
 		parbox=false,
 		before upper=\indent,
@@ -105,16 +131,19 @@
 			arc=3mm,
 			overlay=
 				{
-					\path[fill=gray!20] ([yshift=3mm]interior.south east) --++ (-0.4,-0.1) --++ (0.1,-0.2);
-					\path[draw=black,shorten <= -0.05mm,shorten >= -0.05mm ] ([yshift=3mm]interior.south east) --++ (-0.4,-0.1) --++ (0.1,-0.2);
-					\path[fill=gray,draw=none](interior.south west) rectangle node [white]{\Huge\bfseries ! }([xshift=4mm]interior.north west);
+					\path[fill=gray!20]
+						([yshift=3mm]interior.south east) --++ (-0.4,-0.1) --++ (0.1,-0.2);
+					\path[draw=black,shorten <= -0.05mm,shorten >= -0.05mm ]
+						([yshift=3mm]interior.south east) --++ (-0.4,-0.1) --++ (0.1,-0.2);
+					\path[fill=gray,draw=none]
+						(interior.south west) rectangle node [white]{\Huge\bfseries ! }([xshift=4mm]interior.north west);
 				}
 	}
 
-	% Exercise firmware
-	\usetikzlibrary{decorations.markings}
+% Exercise firmware
+\usetikzlibrary{decorations.markings}
 
-	\newtcolorbox{Exercise}
+\newtcolorbox{Exercise}
 	{
 		enhanced,
 			breakable,
@@ -143,48 +172,51 @@
 			borderline north={4pt}{-4pt}{black},
 			title=
 				{
-					习题\thesection
+					习题 \thesection
 				},
-				fonttitle=\bf\Large,
+				fonttitle=\bf \Large,
 				parbox=false,
-				before upper=\indent,
+				before upper = \indent,
 			overlay=
 				{
-					\fill
-						[	decorate,
-							decoration=
-								{
-									markings,
-									mark = between positions 0.05  and 0.98 step 6mm with
-										{
-											\node [circle,draw=black]{};
-										}
-								},postaction={decoration}
-						]([xshift=3mm,yshift=-6mm]frame.north east) -- ([xshift=3mm,yshift=5mm]frame.south east);
+					\fill[decorate,decoration=
+													{
+														markings,
+														mark = between positions 0.05  and 0.98 step 6mm with
+															{
+																\node [circle,draw=black]{};
+															}
+													},postaction={decoration}
+								]
+								([xshift=3mm,yshift=-6mm]frame.north east) -- ([xshift=3mm,yshift=5mm]frame.south east);
 
-						\draw[thick, rounded corners]([yshift=-2mm]frame.north east) --++ (0:6mm) -- ([xshift=6mm,yshift=2mm]frame.south east) --++ (180:6mm);
+						\draw[thick, rounded corners]
+								([yshift=-2mm]frame.north east) --++ (0:6mm)
+								-- ([xshift=6mm,yshift=2mm]frame.south east) --++ (180:6mm);
 						\begin{tcbclipinterior}
-							\fill[gray!60](frame.north west) rectangle ([xshift=1cm]frame.south west);
+							\fill[gray!60]
+								(frame.north west) rectangle ([xshift=1cm]frame.south west);
 						\end{tcbclipinterior}
 
 				}
 	}
 
 % enviroment for exercise
-\tcbset{
-	exercise/.style=
-		{
-			on line,
-			top=0mm,
-			bottom=0mm,
-			boxrule=0mm,
-			colback=gray!5,
-			fontupper=\bf,
-			left=0mm,
-			right=0mm
-		}
+\tcbset
+	{
+		exercise/.style=
+			{
+				on line,
+				top=0mm,
+				bottom=0mm,
+				boxrule=0mm,
+				colback=gray!5,
+				fontupper=\bf,
+				left=0mm,
+				right=0mm
+			}
 	}
-	\newenvironment{exercises}
+\newenvironment{exercises}
 	{
 		\begin{enumerate}
 		[
@@ -214,9 +246,13 @@
 		topsep=0pt
 	}
 
-% list
+% list for choice-questions and text positions
 \RequirePackage{hlist}
-\newenvironment{options}[5][4]
+
+% for choice-questions
+\newenvironment{options}
+	[5]
+	[4]
 	{
 		\begin{hlist}
 			[
@@ -231,9 +267,11 @@
 			\hitem #3
 			\hitem #4
 			\hitem #5
-	}{\end{hlist}}
+	}
+	{\end{hlist}}
 
-	\newenvironment{options_tag}[5][4]
+% for choice-questions which has numbers
+\newenvironment{options_tag}[5][4]
 	{
 		\begin{hlist}
 			[
@@ -250,10 +288,12 @@
 			\hitem #5
 	}{\end{hlist}}
 
-% enviroment for examples
+% Examples enviroment
 \RequirePackage{fontawesome5}
 \newcounter{examplescounter}[section]
-\newenvironment{examples}{\refstepcounter{examplescounter}
+\newenvironment{examples}
+	{
+		\refstepcounter{examplescounter}
 		\begin{enumerate}
 		[
 			align=left,
@@ -266,40 +306,78 @@
 			labelsep=0mm,
 			leftmargin=3.8em
 		]\item
-	}{\end{enumerate}}
-
-% enviroment for analysis
-\newenvironment{analysis}
-[1][解析]
-	{
-		\faWifi{\bf #1}\hspace{0.5em}\ignorespaces
 	}
-	{\par}
+	{\end{enumerate}}
+
+% Analysis enviroment
+\newenvironment{analysis}
+	[1]
+	[解析]
+	{
+		\begin{enumerate}
+		[
+			align=left,
+			labelindent=0em,
+			label =
+			{
+				\faWifi{\bf #1}\hspace{0.5em}\ignorespaces
+			},
+			labelwidth=3.8em,
+			labelsep=0mm,
+			leftmargin=3.8em
+		]\item
+	}
+	{\end{enumerate}\par}
 
 
-% chapter Table
+% Chapter Table
 \RequirePackage[explicit, indentafter,pagestyles]{titlesec}
+
 \titleformat{\chapter}
 	[display]
-	{\StandardArial\LARGE\filleft}
-	{\CTEXthechapter}{0.2em}
-	{\titlerule[2pt]\centering\vspace{0.4em} #1}
+	{
+		\StandardArial\LARGE\filleft
+	}
+	{
+		\CTEXthechapter
+	}
+	{
+		0.2em
+	}
+	{
+		\titlerule[2pt]\centering\vspace{0.4em} #1
+	}
 	[]
 
 
 \titleformat{name=\chapter,numberless}
-	{\LARGE}
-	{}
-	{0em}
-	{\StandardArial\filleft #1}
-	[{\titlerule[2pt]}]
+	{
+		\LARGE
+	}
+	{
+	}
+	{
+		0em
+	}
+	{
+		\StandardArial\filleft #1
+	}
+	[
+		{\titlerule[2pt]}
+	]
 
 
 \titleformat{\section}
-	{\bf\Large}
-	{}
-	{0em}
-	{\begin{tcolorbox}
+	{
+		\bf\Large
+	}
+	{
+	}
+	{
+		0em
+	}
+	{
+		\begin{tcolorbox}
 			[
 				nobeforeafter,
 				enhanced,
@@ -321,107 +399,91 @@
 	}
 	[]
 
+\titlespacing*{\section}{0em}{0em}{-2em}
+\titlespacing*{\subsection}{-3.5em}{0em}{0.5em}
 
-	\titlespacing*{\section}{0em}{0em}{-2em}
-	\titlespacing*{\subsection}{-3.5em}{0em}{0.5em}
-
+% Footer formats
 \newpagestyle{footer}
 	{
-		\setfoot[高等数学笔记排版~\rule[-0.4mm]{0.2em}{1em}~\thepage][][]
-						{}{}{\ifthechapter{\thepage~\rule[-0.4mm]{0.2em}{1em}~\CTEXthechapter\quad\chaptertitle}{\thepage~\rule[-0.4mm]{0.2em}{1em}~\chaptertitle}}
+		\setfoot[高等数学讲义排版~\rule[-0.4mm]{0.2em}{1em}~\thepage][][]
+						{}{}{
+									\ifthechapter
+										{
+											\thepage~\rule[-0.4mm]{0.2em}{1em}~\CTEXthechapter\quad\chaptertitle
+										}
+										{
+											\thepage~\rule[-0.4mm]{0.2em}{1em}~\chaptertitle
+										}
+								}
 	}
+% For all papers footer when the program running belows...
 \pagestyle{footer}
 
-	\renewpagestyle{plain}
+\renewpagestyle{plain}
 	{
 		\setfoot[][][]
-						{}{}{\ifthechapter{\thepage~\rule[-0.4mm]{0.2em}{1em}~\CTEXthechapter\quad\chaptertitle}{\thepage~\rule[-0.4mm]{0.2em}{1em}~\chaptertitle}}
+						{}{}{
+									\ifthechapter
+										{
+											\thepage~\rule[-0.4mm]{0.2em}{1em}~\CTEXthechapter\quad\chaptertitle
+										}
+										{
+											\thepage~\rule[-0.4mm]{0.2em}{1em}~\chaptertitle
+										}
+								}
 	}
 
-%
-\newcommand{\tk}{\CJKunderline{\hspace*{1.6em}$\blacktriang$\hspace*{1.6em}}}
+% TODO: One-shot key for answers <10-04-22, Amos-CXW-Fiona> %
+% completion enviroment
+\newcommand{\completion}{\CJKunderline{\hspace*{1.6em}$\blacktriang$\hspace*{1.6em}}}
 
-%
-\RequirePackage{array}
-\RequirePackage{multirow}
-\RequirePackage{makecell}
-\RequirePackage{booktabs}
-\RequirePackage{hhline}
-\RequirePackage{colortbl}
+% tabular enviroment
+\RequirePackage{ array }
+	\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
-\setlength{\abovetopsep}{0ex}
-\setlength{\belowrulesep}{0ex}
-\setlength{\aboverulesep}{0ex}
-\setlength{\belowbottomsep}{0ex}
+\RequirePackage{ makecell }
+\RequirePackage{ multirow }
 
-\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
-\newcolumntype{Y}{!{\vrule width 0.08em}}
+\RequirePackage{ booktabs }
+	\setlength{\abovetopsep}{0ex}
+	\setlength{\belowrulesep}{0ex}
+	\setlength{\aboverulesep}{0ex}
+	\setlength{\belowbottomsep}{0ex}
+	\newcolumntype{Y}{!{\vrule width 0.08em}}
 
-\lineskiplimit=5pt
-\lineskip=6pt
-
-\delimiterfactor=800
-
-\newtcbox{\eqmybox}
-	{
-		on line,
-		%colback=white,
-		colframe=black,
-		top=1mm,
-		bottom=0mm,
-		left=0mm,
-		right=0mm,
-		arc=3mm,
-		boxrule=0pt,
-		colback=gray!30
-	}
+\RequirePackage{ hhline }
+\RequirePackage{ colortbl }
 
 
-% quote
-\RequirePackage[titles]{tocloft}
-
-\renewcommand{\cftdot}{\LARGE$\cdot$}
-\renewcommand{\cftdotsep}{0.7}
-\renewcommand{\cftchapdotsep}{\cftdotsep}
-
-
-% multicolumn
-\RequirePackage{multicol}
-\renewcommand\cfttocprehook{\begin{multicols}{2}}
-\renewcommand\cfttocposthook{\end{multicols}}
-
-% line gap
-%\usepackage[bodytextleadingratio=1.5,restoremathleading=true]{zhlineskip}
-\RequirePackage[bodytextleadingratio=1.5,restoremathleading=true]{zhlineskip}
-\SetMathEnvironmentSinglespace{1.1}
 
 \AtBeginDocument
 	{
-	\begingroup
-	\catcode `\:=\active
-	\scantokens{\gdef:{\mathpunct{\mbox{: \hspace{-0.18em}}}}}
-	\endgroup
-	\mathcode `\:="8000
+		\begingroup
+			\catcode `\:=\active
+			\scantokens{ \gdef:{ \mathpunct{\mbox{: \hspace{-0.18em}}}} }
+		\endgroup
+		\mathcode `\:="8000
 	}
 
 
 \makeatletter
 	\begingroup
-	\catcode `\,=\active
-	\def\@x@{\def,{\mathpunct{\mbox{, \hspace{-0.18em}}}}}
-	\expandafter\endgroup\@x@
-	\mathcode`\,="8000
+		\catcode `\,=\active
+		\def\@x@{\def,{\mathpunct{\mbox{, \hspace{-0.18em}}}}}
+		\expandafter
+	\endgroup
+	\@x@ \mathcode`\,="8000
 \makeatother
 
 
 \AtBeginDocument
 	{
-	\begingroup
-	\catcode `\;=\active
-	\scantokens{\gdef;{\mathpunct{\mbox{;\hspace{-0.18em}}}}}
-	\endgroup
-	\mathcode`\;="8000
+		\begingroup
+			\catcode `\;=\active
+			\scantokens{\gdef;{\mathpunct{\mbox{;\hspace{-0.18em}}}}}
+		\endgroup
+		\mathcode`\;="8000
 	}
 
 \endinput
-% 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
+% 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
