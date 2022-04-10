@@ -1,14 +1,16 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{course}
-%\LoadClass[fontset=none]{ctexbook}
-\LoadClass{ctexbook}
-
-
+\LoadClass[fontset=none]{ctexbook}
+%\LoadClass{ctexbook}
 
 % Fonts -CN
 %RequirePackage{xeCJK}
 \setCJKfamilyfont{fsong}{Source Han Serif CN}
 \def\StandardArial{\CJKfamily{fsong}}
+
+\setCJKmainfont{Source Han Serif CN}
+\setCJKsansfont{Source Han Serif CN}
+\setCJKmonofont{Source Han Serif CN}
 
 	\xeCJKsetup{PunctStyle=kaiming}
 	%\xeCJKsetup{PunctFamily=zhsong} % setting by xeCJK
@@ -98,14 +100,14 @@
 			colback=gray!5,
 			colframe=black,
 			sharp corners,
-			rounded corners=southheast,
+			rounded corners=southeast,
 			arc is angular,
 			arc=3mm,
 			overlay=
 				{
-					\path[fill=gray!20] ([yshift=3mm]interior.south east)--++(-0.4,-0.1)--++(0.1,-0.2);
-					\path[draw=black,shorten <= -0.05mm,shorten >= -0.05mm ] ([yshift=3mm]interior.south east)--++(-0.4,-0.1)--++(0.1,-0.2);
-					\path[fill=gray,draw=none](interior.south west) rectangle node [white]{\Huge\bfseries!}([xshift=4mm]interior.north west);
+					\path[fill=gray!20] ([yshift=3mm]interior.south east) --++ (-0.4,-0.1) --++ (0.1,-0.2);
+					\path[draw=black,shorten <= -0.05mm,shorten >= -0.05mm ] ([yshift=3mm]interior.south east) --++ (-0.4,-0.1) --++ (0.1,-0.2);
+					\path[fill=gray,draw=none](interior.south west) rectangle node [white]{\Huge\bfseries ! }([xshift=4mm]interior.north west);
 				}
 	}
 
@@ -149,24 +151,23 @@
 			overlay=
 				{
 					\fill
-						[
-							decorate,
+						[	decorate,
 							decoration=
 								{
 									markings,
-									mark = between positions 0.05  and 0.98 step 6mm width
+									mark = between positions 0.05  and 0.98 step 6mm with
 										{
 											\node [circle,draw=black]{};
 										}
-								}
-						]
-						( [xshift=3mm,yshift=-6mm]frame.north east	)--( [xshift=3mm,yshift=5mm]frame.south east );
-						\draw[thick, rounded corners]( [yshift=-2mm]frame.north east )--++(0:6mm)--( [xshift=6mm,yshift=2mm]frame.south east )--++(180:6mm);
+								},postaction={decoration}
+						]([xshift=3mm,yshift=-6mm]frame.north east) -- ([xshift=3mm,yshift=5mm]frame.south east);
+
+						\draw[thick, rounded corners]([yshift=-2mm]frame.north east) --++ (0:6mm) -- ([xshift=6mm,yshift=2mm]frame.south east) --++ (180:6mm);
 						\begin{tcbclipinterior}
-							\fill[gray!60](frame.north west) rectangle ( [xshift=1cm]frame.south west );
+							\fill[gray!60](frame.north west) rectangle ([xshift=1cm]frame.south west);
 						\end{tcbclipinterior}
 
-				},
+				}
 	}
 
 % enviroment for exercise
@@ -269,9 +270,9 @@
 
 % enviroment for analysis
 \newenvironment{analysis}
-	[1]
+[1][解析]
 	{
-		\faWifi{\bf #1}\hspace{0.5em}
+		\faWifi{\bf #1}\hspace{0.5em}\ignorespaces
 	}
 	{\par}
 
@@ -364,7 +365,7 @@
 \newtcbox{\eqmybox}
 	{
 		on line,
-		colback=white,
+		%colback=white,
 		colframe=black,
 		top=1mm,
 		bottom=0mm,

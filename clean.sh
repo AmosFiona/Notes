@@ -8,6 +8,6 @@ rm ./Latex/*.fls
 rm ./Latex/*.log
 rm ./Latex/*.synctex.gz
 rm ./Latex/*.xdv
-
-
-
+rm ./Latex/*.pdf
+rm ./Latex/*.toc
+rm ./Latex/'*(busy)'
