@@ -10,4 +10,22 @@ rm ./Latex/*.synctex.gz
 rm ./Latex/*.xdv
 rm ./Latex/*.pdf
 rm ./Latex/*.toc
-rm ./Latex/'*(busy)'
+
+rm ./Latex/COURSE/*.aux
+rm ./Latex/COURSE/*.fdb_latexmk
+rm ./Latex/COURSE/*.fls
+rm ./Latex/COURSE/*.log
+rm ./Latex/COURSE/*.synctex.gz
+rm ./Latex/COURSE/*.xdv
+rm ./Latex/COURSE/*.pdf
+rm ./Latex/COURSE/*.toc
+
+
+rm ./Latex/LECTURE/*.aux
+rm ./Latex/LECTURE/*.fdb_latexmk
+rm ./Latex/LECTURE/*.fls
+rm ./Latex/LECTURE/*.log
+rm ./Latex/LECTURE/*.synctex.gz
+rm ./Latex/LECTURE/*.xdv
+rm ./Latex/LECTURE/*.pdf
+rm ./Latex/LECTURE/*.toc

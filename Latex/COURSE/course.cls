@@ -111,7 +111,7 @@
 		% colback=gray!30
 	}
 
-% postil firmware
+% postil Box
 \newtcolorbox{postil}
 	{
 		parbox=false,
@@ -140,7 +140,7 @@
 				}
 	}
 
-% Exercise firmware
+% Exercise Box
 \usetikzlibrary{decorations.markings}
 
 \newtcolorbox{Exercise}
@@ -246,13 +246,11 @@
 		topsep=0pt
 	}
 
-% list for choice-questions and text positions
+% contraposition
 \RequirePackage{hlist}
 
 % for choice-questions
-\newenvironment{options}
-	[5]
-	[4]
+\newenvironment{options}[5][4]
 	{
 		\begin{hlist}
 			[
@@ -268,7 +266,9 @@
 			\hitem #4
 			\hitem #5
 	}
-	{\end{hlist}}
+	{
+		\end{hlist}
+	}
 
 % for choice-questions which has numbers
 \newenvironment{options_tag}[5][4]
@@ -486,4 +486,4 @@
 	}
 
 \endinput
-% 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
+% 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
