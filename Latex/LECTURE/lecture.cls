@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{course}
+\ProvidesClass{lecture}
 \LoadClass[fontset=none]{ctexbook}
 %\LoadClass{ctexbook}
 
@@ -48,27 +48,27 @@
 \RequirePackage{ geometry }
 \geometry
 	{
-		paperheight=29.7cm,
-		paperwidth=21cm,
-		width=17cm,
-		height=25.7cm,
-		left=1.8cm,
-		right=1.6cm,
-		top=1.5cm,
-		bottom=2.5cm,
-		headsep=3.2em,
+		paperheight = 29.7cm,
+		paperwidth 	= 21cm,
+		width 			= 17cm,
+		height 			= 25.7cm,
+		left 				= 1.8cm,
+		right 			= 1.6cm,
+		top 				= 1.5cm,
+		bottom 			= 2.5cm,
+		headsep 		= 3.2em,
 	}
 
 % draw Pictures
-\RequirePackage{tikz}
-\RequirePackage{tikzpagenodes}
-	\usetikzlibrary{shapes.callouts}
-	\usetikzlibrary{shapes.geometric}
-	\usetikzlibrary{positioning}
+\RequirePackage{ tikz }
+\RequirePackage{ tikzpagenodes }
+	\usetikzlibrary{ shapes.callouts }
+	\usetikzlibrary{ shapes.geometric }
+	\usetikzlibrary{ positioning }
 
-% Column shape
-\newcommand{\columnshapes}[1]
-	{%
+% Column shape specialized training
+\newcommand{\specialtraining}[1]
+	{
 		\begin{center}
 			\begin{tikzpicture}
 				\node
@@ -76,33 +76,33 @@
 						cloud callout,
 						cloud puffs 		= 15,
 						aspect 					= 4.5,
-						cloud puff arc = 120,
+						cloud puff arc 	= 120,
 						draw,
 						text 						= black,
-						font 						= \bs \Large,
+						font 						= \bf \Large,
 						shading 				= ball,
 						ball color 			= gray!20
 					]at (0,0){#1};
 			\end{tikzpicture}
-		\end{center}%
-	}%
+		\end{center}
+	}
 
 % list environments
 \RequirePackage{ enumitem }
 \setenumerate
 	{
-		itemsep =0 pt,
+		itemsep 	= 0 pt,
 		partopsep = 0 pt,
-		parsep 	= \parskip,
-		topsep = 0 pt
+		parsep 		= \parskip,
+		topsep 		= 0 pt
 	}
 \setenumerate[2]
 	{
-		align =left,
-		label = ({\makebox[0.8 em]{\arrabic*}}),
-		labelwidth = 1.7 em,
-		labelsep = 0 em,
-		leftmargin = 1.7 em
+		align 			=left,
+		label 			= ({\makebox[0.8 em]{\arrabic*}}),
+		labelwidth 	= 1.7 em,
+		labelsep 		= 0 em,
+		leftmargin 	= 1.7 em
 	}
 
 % colors boxder macro
@@ -112,8 +112,7 @@
 \RequirePackage{ varwidth }
 
 % Learnning Objectives Box
-\newtcolorbox{LearnningObjectivesBox}
-	[1][]
+\newtcolorbox{LearnningObjectivesBox}[1][]
 	{
 		nobeforeafter,
 		valign = center,
@@ -128,7 +127,7 @@
 			leftrule 			= 0 mm,
 			attach boxed title to top center =
 				{
-					xshift  = 0.29cm,
+					xshift  = 0.29 cm,
 					yshift* = 1 mm - \tcboxedtitleheight
 				},
 			varwidth boxed title* = -3 cm,
@@ -137,9 +136,9 @@
 					frame code =
 						{
 							\path[fill=gray!70!black]
-								([yshift = -1mm, xshift = -1 mm]frame.north west)
+								([yshift = -1 mm, xshift = -1 mm]frame.north west)
 								arc[start angle = 0, end angle = 180, radius = 1 mm]
-								([yshift = -1mm, xshift = 1 mm]frame.north east)
+								([yshift = -1 mm, xshift = 1 mm]frame.north east)
 								arc[start angle = 180, end angle = 0, radius = 1 mm];
 							\path[fill = gray!70!black]
 								([xshift = -2 mm]frame.north west)
@@ -153,7 +152,7 @@
 					interior engine = empty,
 				},
 			fonttitle = \zihao{4}\bfseries,
-			title 		= {学习目标}
+			title 		= {学习目标},
 			height 		= #1 cm
 	}
 
@@ -162,12 +161,12 @@
 	{
 		\begin{enumerate}
 			[
-				label = \arabic*.,
-				align = left,
+				label 			= \arabic*.,
+				align 			= left,
 				labelindent = 0 em,
 				labelwidth  = 1 em,
 				labelsep  	= 0 em,
-				leftmargin = 1 em
+				leftmargin 	= 1 em
 			]\StandardArial
 	}
 	{
@@ -175,19 +174,18 @@
 	}
 \setdescription
 	{
-		itemsep = 0 pt,
+		itemsep 	= 0 pt,
 		partopsep = 0 pt,
-		parsep = \parskip,
-		topsep = 0 pt
+		parsep 		= \parskip,
+		topsep 		= 0 pt
 	}
 
 % Key and Difficulty Box
-\newtcolorbox{KeyandDifficultyBox}
-	[1][]
+\newtcolorbox{KeyandDifficultyBox}[1][]
 	{
-		left skip = -1 mm,
+		left skip 			= -1 mm,
 		nobeforeafter,
-		valign = center,
+		valign 					= center,
 		enhanced,
 			width 				= 0.495 \textwidth,
 			bottom 				= 0 mm,
@@ -196,7 +194,7 @@
 			sharp corners = west,
 			arc is angular,
 			arc 					= 2 mm,
-			rightrule 			= 0 mm,
+			rightrule 		= 0 mm,
 			attach boxed title to top center =
 				{
 					xshift  = 0.29cm,
@@ -208,9 +206,9 @@
 					frame code =
 						{
 							\path[fill=gray!70!black]
-								([yshift = -1mm, xshift = -1 mm]frame.north west)
+								([yshift = -1 mm, xshift = -1 mm]frame.north west)
 								arc[start angle = 0, end angle = 180, radius = 1 mm]
-								([yshift = -1mm, xshift = 1 mm]frame.north east)
+								([yshift = -1 mm, xshift = 1 mm]frame.north east)
 								arc[start angle = 180, end angle = 0, radius = 1 mm];
 							\path[fill = gray!70!black]
 								([xshift = -2 mm]frame.north west)
@@ -224,7 +222,7 @@
 					interior engine = empty,
 				},
 			fonttitle = \zihao{4}\bfseries,
-			title 		= {重点难点}
+			title 		= {重点难点},
 			height 		= #1 cm
 	}
 
@@ -233,11 +231,11 @@
 	{
 		\begin{description}
 			[
-				align = left,
+				align 			= left,
 				labelindent = 0 em,
 				labelwidth  = 3 em,
 				labelsep  	= 0 em,
-				leftmargin = 1 em,
+				leftmargin 	= 1 em,
 				font 				= \bf
 			]\StandardArial
 	}
@@ -253,12 +251,12 @@
 	{
 		\begin{hlist}
 			[
-				pre skip=0pt,
-				post skip=0pt,
-				label=\Alpha{hlist}.,
-				pre label=,
-				item offset=1.2em,
-				col sep=0.5em
+				pre skip 		= 0 pt,
+				post skip 	= 0 pt,
+				label 			= \Alpha{hlist}.,
+				pre label 	=,
+				item offset = 1.2 em,
+				col sep 		= 0.5 em
 			]#1
 			\hitem #2
 			\hitem #3
@@ -274,12 +272,12 @@
 	{
 		\begin{hlist}
 			[
-				pre skip=0pt,
-				post skip=0pt,
-				show label=false,
-				pre label=,
-				item offset=1.2em,
-				col sep=0.5em
+				pre skip 		= 0 pt,
+				post skip 	= 0 pt,
+				show label 	= false,
+				pre label 	=,
+				item offset = 1.2 em,
+				col sep 		= 0.5 em
 			]#1
 			\hitem #2
 			\hitem #3
@@ -291,8 +289,8 @@
 	}
 
 % derivative
-\RequirePackage{bbding}
-\newcounter{derivatives}
+\RequirePackage{ bbding }
+\newcounter{ derivatives }
 \newenvironment{DerivativeExamples}
 	{
 		\HandPencilLeft \fbox{ \bf\thesubsubsection 对接练习 }
@@ -372,8 +370,8 @@
 				align 				= left,
 				labelwidth 		= 1.5 em,
 				labelsep 			= 0 em,
-				leftmargin 	= 1.5 em,
-				label = {\bf \arabic*.}
+				leftmargin 	 	= 1.5 em,
+				label 				= {\bf \arabic*.}
 				series 				= homeworks,
 				resume 				= homeworks
 			]
@@ -384,35 +382,38 @@
 
 % multicolumn
 \RequirePackage{multicol}
+%\renewcommand\cfttocprehook{\begin{multicols}{2}}
+%\renewcommand\cfttocposthook{\end{multicols}}
 
 % column lines
 \RequirePackage[tikz]{multicolrule}
 \usetikzlibrary{calc}
 \usetikzlibrary{decorations.pathmorphing}
 \setlength{\columnsep}{2em}
-\SetMCRule{width = 0.5 pt,
+\SetMCRule{
+		width 			= 0.5 pt,
 		custom-line =
 			{
 				\draw
 					[
 						decorate,
 						decoration = {coil, aspect = 0}
-					](TOP)--(BOT);
+					](TOP) -- (BOT);
 			}
 	}
 
-\RequirePackage{float}
+\RequirePackage{ float }
 
 % Pictures
-\RequirePackage{graphicx}
+\RequirePackage{ graphicx }
 
 % caption Table
-\RequirePackage{caption}
+\RequirePackage{ caption }
 	\captionsetup
 		{
-			labelsep = quad,
-			font = rm,
-			font = small,
+			labelsep 	= quad,
+			font 		 	= rm,
+			font 			= small,
 			aboveskip = 6 pt
 		}
 	\renewcommand{\thefigure}{\thechapter{}-\arabic{figure}}
@@ -420,8 +421,7 @@
 %	\captionsetup[table]{position = above}
 
 % chapter title
-\RequirePackage{fontawesome5}
-\RequirePackage{etoolbox}
+\RequirePackage{ etoolbox }
 \setcounter{secnumdepth}{3}
 
 \RequirePackage[explicit,indentafter,pagestyles]{titlesec}
@@ -433,14 +433,9 @@
 \apptocmd{\endmulticols}{\global\multicolsusedfalse}{}{}
 
 \titleformat{\chapter}
-	{
-		\Huge\bfseries
-	}
-	{
-	}
-	{
-		0 em
-	}
+	{	\Huge\bfseries }
+	{}
+	{ 0 em }
 	{
 		\begin{tikzpicture}[remember picture, overlay]
 			\fill[gray!30]
@@ -452,19 +447,19 @@
 				[
 					circular sector,
 					circular sector angle = 100,
-					shape border rotate = 90,
-					fill = gray!70,
+					shape border rotate 	= 90,
+					fill 									= gray!70,
 					right,
-					text=white,
-					font = \bf\huge,
-					inner sep =20 pt
-				] at ([shift={(2cm,-2cm)}]current page.west){\CTEXthechapter};
+					text 									= white,
+					font 									= \bf \huge,
+					inner sep 						= 20 pt
+				] at ([shift = {(2 cm, -2 cm)}]current page.west){\CTEXthechapter};
 			\node
 				[
-					font = \bf\huge,
-					inner sep =20 pt,
-					anchor = west
-				]at([shift={(10cm,-2.5cm)}]current page.west){#1};
+					font 			= \bf \huge,
+					inner sep = 20 pt,
+					anchor 		= west
+				] at ([shift = {(10 cm, -2.5 cm)}]current page.west){#1};
 		\end{tikzpicture}
 	}
 	[
@@ -479,14 +474,9 @@
 	]
 
 \titleformat{name=\chapter,numberless}
-	{
-		\Huge\bfseries
-	}
-	{
-	}
-	{
-		0em
-	}
+	{	\Huge \bfseries }
+	{}
+	{	0em }
 	{
 		\begin{tikzpicture}[remember picture, overlay]
 			\draw[line width = 1.2 pt]
@@ -517,40 +507,34 @@
 	}
 
 \titleformat{\section}
-	{
-		\bf\Large\centering
-	}
-	{
-		\faBook~\thesection
-	}
-	{
-		1em
-	}
+	{	\bf \Large \centering	}
+	{	\faBook ~ \thesection	}
+	{ 1em	}
 	{
 		\begin{tcolorbox}
 			[
 				nobeforeafter,
-				width = 0.5\textwidth - 1em,
-				arc=0mm,
+				width 						= 0.5 \textwidth - 1 em,
+				arc 							= 0 mm,
 				enhanced,
 					bicolor,
-					lefthand ratio = 0.17,
+					lefthand ratio 	= 0.17,
 					sidebyside,
-					sidebyside gap = 1 mm
-					colback=gray!79!black,
-					colbacklower=gray!20,
-					left = 0.5mm,
-					font upper=\color{white},
-					halign=left,
-					boxrule=0mm,
-					top=1mm,
-					bottom=1mm
+					sidebyside gap 	= 1 mm
+					colback 				= gray!79!black,
+					colbacklower 		= gray!20,
+					left 						= 0.5 mm,
+					font upper 			= \color{white},
+					halign 					= left,
+					boxrule 				= 0 mm,
+					top 						= 1 mm,
+					bottom 					= 1 mm
 			]\thesubsubsection \tcblower #1
 		\end{tcolorbox}
 	}
 	[]
 
-\titlespacing*{\subsubsection}{0pt}{0em}{0em}
+\titlespacing*{\subsubsection}{ 0 pt }{ 0 em }{ 0 em }
 
 % catalog/contents
 \setcounter{tocdepth}{3}
@@ -576,16 +560,12 @@
 
 \RequirePackage{titletoc}
 \titlecontents{chapter}[1em]
-	{
-		\large\filcenter
-	}
-	{
-		\bf\thecountentslabel
-	}
+	{	\large \filcenter }
+	{	\bf \thecontentslabel	}
 	{}
 	{}
 	[
-		{\titlerule[1pt]\addvspace{1em}}
+		{ \titlerule[1pt] \addvspace{1em}}
 	]
 
 % header footer
@@ -594,53 +574,65 @@
 
 \newzhlipsum{logion}
 	{
-		{},
-		{},
+		{what it is1!},
+		{what it is2!},
+		{what it is3!},
+		{what it is4!},
+		{what it is5!},
+		{what it is6!},
+		{what it is7!},
+		{what it is8!},
+		{what it is9!},
+		{what it is10!},
+		{what it is11!},
+		{what it is12!},
+		{what it is13!}
 	}
 
 \newpagestyle{math}
 	{
 		\sethead
 		[
-			\begin{tikzpicture}
-				[remember picture, overlay]
-				\draw([xshift = 1.5 cm, yshift = 1cm]current page header area.south west)
-					-- ([xshfit = 1.5 cm]current page header area.south west)
-					--++ (7cm , 0 );
-				\node
-					[
-						anchor =south west,
-						rectangle callout,
-						callout relative pointer = {(-25:0.5)},
-						inner sep = 1 em,
-						fill = gray,
-						text = white,
-						font = \sf\large
+			{
+				\begin{tikzpicture}[remember picture, overlay]
+					\draw([xshift = 1.5 cm, yshift = 1 cm]current page header area.south west)
+						-- ([xshfit = 1.5 cm]current page header area.south west)
+						--++ (7 cm , 0 );
+					\node
+						[
+							anchor 									 	= south west,
+							rectangle callout,
+							callout relative pointer 	= {(-25:0.5)},
+							inner sep 								= 1 em,
+							fill 											= gray,
+							text 											= white,
+							font 											= \sf \large
 						]	at (current page header area.south west){\thepage};
-				\node[anchor = west]  at ([xshift = 1.6 cm, yshift = 0.3 cm]current page header area.south west){导学学案}；
-			\end{tikzpicture}
+				\node[anchor = west]  at ([xshift = 1.6 cm, yshift = 0.3 cm]current page header area.south west){导学学案};
+				\end{tikzpicture}
+			}
 		][][]
 		{
 			\begin{tikzpicture}
 				[remember picture, overlay]
 				\draw([xshift = 1.5 cm, yshift = 1cm]current page header area.south east)
-					-- ([xshfit = -1.5 cm]current page header area.south east)
+					-- ([xshift = -1.5 cm]current page header area.south east)
 				--++ (7cm , 0);
 				\node
 					[
-						anchor =south east,
+						anchor 										= south east,
 						rectangle callout,
-						callout relative pointer = {(-155:0.5)},
-						inner sep = 1 em,
-						fill = gray,
-						text = white,
-						font = \sf\large
+						callout relative pointer 	= {(-155:0.5)},
+						inner sep 								= 1 em,
+						fill 											= gray,
+						text 											= white,
+						font 											= \sf \large
 						]	at (current page header area.south east){\thepage};
 						\node[anchor = east]  at ([xshift = -1.6 cm, yshift = 0.3 cm]current page header area.south east)
 							{
-								\ifthechapter{CTEXthechapter~\thechaptertitle}
+								\ifthechapter{\CTEXthechapter~\thechaptertitle}
 								{\chaptertitile}
-							}；
+							};
 						\end{tikzpicture}
 					}{}{}
 
@@ -648,35 +640,38 @@
 		[
 			\ifthechapter
 				{
-					\begin{tikzpicture}
+					{\begin{tikzpicture}
 						[remember picture, overlay]
-						\fill[gray!20]([yshift = -1.5 cm]current page footer area.south west)
-							rectangle(current page footer area.north east);
+						\fill[gray!20]
+							([yshift = -1.5 cm]current page footer area.south west)
+							rectangle (current page footer area.north east);
 						\node
 							[
-								anchor = west,
-								font = \StandardArial
+								anchor 	= west,
+								font 		= \StandardArial
 							]	at ([yshift = -2 em ]current page footer area.west)
 										{
 											\parbox{\textwidth - 5 mm}
-												{\CTEXindent\zhlipsum[\thepage][name=derviates]}
+												{\CTEXindent \zhlipsum[\thepage][name=logion]}
 										};
 						\end{tikzpicture}
-					}{}
+					}
+				}
 		][][]
 		{
 					\begin{tikzpicture}
 						[remember picture, overlay]
-						\fill[gray!20]([yshift = -1.5 cm]current page footer area.south west)
-							rectangle(current page footer area.north east);
+						\fill[gray!20]
+							([yshift = -1.5 cm]current page footer area.south west)
+							rectangle (current page footer area.north east);
 						\node
 							[
-								anchor = west,
-								font = \StandardArial
+								anchor 	= west,
+								font 		= \StandardArial
 							]	at ([yshift = -2 em ]current page footer area.west)
 										{
 											\parbox{\textwidth - 5 mm}
-												{\CTEXindent\zhlipsum[\thepage][name=derviates]}
+												{\CTEXindent \zhlipsum[\thepage][name=logion]}
 										};
 						\end{tikzpicture}
 		}{}{}
@@ -694,15 +689,15 @@
 		\refstepcounter{examplescounter}
 		\begin{enumerate}
 		[
-			align=left,
-			labelindent=0em,
+			align 			= left,
+			labelindent = 0 em,
 			label =
 			{
-				\bf\faCogs 例{\theexamplescounter}
+				\bf \faCogs 例{\theexamplescounter}
 			},
-			labelwidth=3.8em,
-			labelsep=0mm,
-			leftmargin=3.8em
+			labelwidth 	= 3.8 em,
+			labelsep  	= 0 mm,
+			leftmargin 	= 3.8 em
 		]\item
 	}
 	{\end{enumerate}}
@@ -750,28 +745,31 @@
 
 % assess environment
 \newenvironment{assess}
-{
-	\begin{tcolorbox}
-		[
-			parbox = false,
-			before upper = \indent,
-			fontupper = \StandardArial,
-			breakable,
-			colback = white,
-			colframe = black,
-			leftrule = 1.5pt,
-			rightrule = 0mm,
-			bottomrule = 0mm,
-			toprule = 0mm,
-			arc = 0mm,
-			top = 0mm,
-			bottom = 0mm,
-			left =0mm,
-			right = 0mm
+	{
+		\begin{tcolorbox}
+			[
+				parbox 				= false,
+				before upper 	= \indent,
+				fontupper 		= \StandardArial,
+				breakable,
+				colback 			= white,
+				colframe 			= black,
+				leftrule 			= 1.5 pt,
+				rightrule 		= 0 mm,
+				bottomrule 		= 0 mm,
+				toprule 			= 0 mm,
+				arc 					= 0 mm,
+				top 					= 0 mm,
+				bottom 				= 0 mm,
+				left 					= 0 mm,
+				right 				= 0 mm
 			]{\bf 点评}~
 	}
-	{\end{enumerate}\par}
+	{ \end{tcolorbox}}
 
 
 \newcommand{\fillbankexercise}{\CJKunderline{\hspace*{3.5em}}}
 \newcommand{\choiceexercise}{\hfill(\qquad)}
+
+
+\endinput

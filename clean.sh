@@ -29,3 +29,12 @@ rm ./Latex/LECTURE/*.synctex.gz
 rm ./Latex/LECTURE/*.xdv
 rm ./Latex/LECTURE/*.pdf
 rm ./Latex/LECTURE/*.toc
+
+rm ./Latex/examples/*.aux
+rm ./Latex/examples/*.fdb_latexmk
+rm ./Latex/examples/*.fls
+rm ./Latex/examples/*.log
+rm ./Latex/examples/*.synctex.gz
+rm ./Latex/examples/*.xdv
+rm ./Latex/examples/*.pdf
+rm ./Latex/examples/*.toc
