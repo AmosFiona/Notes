@@ -51,10 +51,10 @@
 		paperheight = 29.7cm,
 		paperwidth 	= 21cm,
 		width 			= 17cm,
-		height 			= 25.7cm,
+		height 			= 24.7cm,
 		left 				= 1.8cm,
 		right 			= 1.6cm,
-		top 				= 1.5cm,
+		top 				= 2.5cm,
 		bottom 			= 2.5cm,
 		headsep 		= 3.2em,
 	}
@@ -361,7 +361,6 @@
 	}
 
 % Homework
-\newcounter{HomeWorks}
 \newenvironment{homeworks}
 	{
 		\begin{enumerate}
@@ -382,8 +381,6 @@
 
 % multicolumn
 \RequirePackage{multicol}
-%\renewcommand\cfttocprehook{\begin{multicols}{2}}
-%\renewcommand\cfttocposthook{\end{multicols}}
 
 % column lines
 \RequirePackage[tikz]{multicolrule}
@@ -446,28 +443,28 @@
 			\node
 				[
 					circular sector,
-					circular sector angle = 100,
+					circular sector angle = 110,
 					shape border rotate 	= 90,
 					fill 									= gray!70,
 					right,
 					text 									= white,
 					font 									= \bf \huge,
 					inner sep 						= 20 pt
-				] at ([shift = {(2 cm, -2 cm)}]current page.west){\CTEXthechapter};
+				] at ([shift = {(2 cm, -2 cm)}]current page.north west){\CTEXthechapter};
 			\node
 				[
 					font 			= \bf \huge,
-					inner sep = 20 pt,
+					inner sep = 0 mm,
 					anchor 		= west
-				] at ([shift = {(10 cm, -2.5 cm)}]current page.west){#1};
+				] at ([shift = {(10 cm, -2.5 cm)}]current page.north west){#1};
 		\end{tikzpicture}
 	}
 	[
 		\ifnum\value{chapter} > 0
 			\addtocontents{toc}
 				{
-					\protect\begin{multicols}{2}
-					\protect\multicolsusedtrue
+					\protect \begin{multicols}{2}
+					\protect \multicolsusedtrue
 				}
 		\fi
 		\stepcounter{countchapters}
@@ -488,28 +485,40 @@
 	[]
 
 \titlespacing*{\chapter}{0em}{0em}{1em}
+
 \pretocmd{\chapter}
 	{
 		\addtocontents{toc}
 			{
-				\protect\ifmulticolsused
-				\protect\end{multicols}
-				\protect\fi
-			}{}{}
-		\AtEndDoucument
+				\protect \ifmulticolsused
+				\protect \end{multicols}
+				\protect \fi
+			}
+	}{}{}
+
+\AtEndDocument
+	{
+		\addtocontents{toc}
 			{
-				\addtocontents{toc}
-					{
-						\protect\ifmulticolsused
-						\protect\end{multicols}
-						\protect\fi
-					}
+				\protect \ifmulticolsused
+				\protect \end{multicols}
+				\protect \fi
+			}
 	}
 
 \titleformat{\section}
 	{	\bf \Large \centering	}
 	{	\faBook ~ \thesection	}
 	{ 1em	}
+	{ #1 }
+	[]
+
+\renewcommand{\thesubsubsection}{题型\aracbic{subsubsection}}
+
+\titleformat{\subsubsection}
+	{ \bfseries \large }
+	{}
+	{ 0em }
 	{
 		\begin{tcolorbox}
 			[
@@ -524,7 +533,7 @@
 					colback 				= gray!79!black,
 					colbacklower 		= gray!20,
 					left 						= 0.5 mm,
-					font upper 			= \color{white},
+					fontupper 			= \color{white},
 					halign 					= left,
 					boxrule 				= 0 mm,
 					top 						= 1 mm,
@@ -534,29 +543,29 @@
 	}
 	[]
 
-\titlespacing*{\subsubsection}{ 0 pt }{ 0 em }{ 0 em }
+\titlespacing*{\subsubsection}{0 pt}{0 em}{0 em}
 
 % catalog/contents
 \setcounter{tocdepth}{3}
 \renewcommand{\contentsname}{目 \quad 录}
 
 \RequirePackage[titles]{tocloft}
-\renewcommand{cftdot}{\Large$\cdot$}
-\renewcommand{cftdotsep}{0.9}
+\renewcommand{\cftdot}{\Large$\cdot$}
+\renewcommand{\cftdotsep}{0.9}
 
-\renewcommand{cftsecpagefont}{\large}
-\renewcommand{cftsecfont}{\large}
-\renewcommand{cftsecindent}{0em}
-\renewcommand{cftbeforesecskip}{0.3em}
+\renewcommand{\cftsecpagefont}{\large}
+\renewcommand{\cftsecfont}{\large}
+\renewcommand{\cftsecindent}{0em}
+\renewcommand{\cftbeforesecskip}{0.3em}
 
-\renewcommand{cftsubsecpagefont}{\large}
-\renewcommand{cftsubsecfont}{\large}
-\renewcommand{cftsubsecindent}{2.5em}
-\renewcommand{cftbeforesubsecskip}{0.3em}
+\renewcommand{\cftsubsecpagefont}{\large}
+\renewcommand{\cftsubsecfont}{\large}
+\renewcommand{\cftsubsecindent}{2.5em}
+\renewcommand{\cftbeforesubsecskip}{0.3em}
 
-\renewcommand{cftsubsubsecfont}{\StandardArial}
-\renewcommand{cftsubsecindent}{2.3em}
-\renewcommand{cftbeforesubsecskip}{3em}
+\renewcommand{\cftsubsubsecfont}{\StandardArial}
+\renewcommand{\cftsubsecindent}{2.3em}
+\renewcommand{\cftbeforesubsecskip}{3em}
 
 \RequirePackage{titletoc}
 \titlecontents{chapter}[1em]
@@ -596,8 +605,8 @@
 			{
 				\begin{tikzpicture}[remember picture, overlay]
 					\draw([xshift = 1.5 cm, yshift = 1 cm]current page header area.south west)
-						-- ([xshfit = 1.5 cm]current page header area.south west)
-						--++ (7 cm , 0 );
+						-- ([xshift = 1.5 cm]current page header area.south west)
+						--++ (7 cm, 0);
 					\node
 						[
 							anchor 									 	= south west,
@@ -615,9 +624,9 @@
 		{
 			\begin{tikzpicture}
 				[remember picture, overlay]
-				\draw([xshift = 1.5 cm, yshift = 1cm]current page header area.south east)
+				\draw([xshift = -1.5 cm, yshift = 1cm]current page header area.south east)
 					-- ([xshift = -1.5 cm]current page header area.south east)
-				--++ (7cm , 0);
+				--++ (-7 cm, 0);
 				\node
 					[
 						anchor 										= south east,
@@ -630,8 +639,13 @@
 						]	at (current page header area.south east){\thepage};
 						\node[anchor = east]  at ([xshift = -1.6 cm, yshift = 0.3 cm]current page header area.south east)
 							{
-								\ifthechapter{\CTEXthechapter~\thechaptertitle}
-								{\chaptertitile}
+								\ifthechapter
+									{
+										\CTEXthechapter~\chaptertitle
+									}
+									{
+										\chaptertitile
+									}
 							};
 						\end{tikzpicture}
 					}{}{}
@@ -640,8 +654,8 @@
 		[
 			\ifthechapter
 				{
-					{\begin{tikzpicture}
-						[remember picture, overlay]
+					{
+						\begin{tikzpicture}[remember picture, overlay]
 						\fill[gray!20]
 							([yshift = -1.5 cm]current page footer area.south west)
 							rectangle (current page footer area.north east);
@@ -652,15 +666,16 @@
 							]	at ([yshift = -2 em ]current page footer area.west)
 										{
 											\parbox{\textwidth - 5 mm}
-												{\CTEXindent \zhlipsum[\thepage][name=logion]}
+												{%\CTEXindent
+													\zhlipsum[\thepage][name=logion]}
 										};
 						\end{tikzpicture}
 					}
 				}
+				{}
 		][][]
 		{
-					\begin{tikzpicture}
-						[remember picture, overlay]
+					\begin{tikzpicture}[remember picture, overlay]
 						\fill[gray!20]
 							([yshift = -1.5 cm]current page footer area.south west)
 							rectangle (current page footer area.north east);
@@ -742,6 +757,13 @@
 
 % preview environment fill bank
 % TODO:  <10-04-22, Amos-CXW-Fiona> %
+% fill bank One-key for answer
+
+
+
+% TODO:  <15-04-22, Amos-CXW-Fiona> %
+% analysis environment for One-key
+%TODO zhengming
 
 % assess environment
 \newenvironment{assess}
@@ -771,5 +793,42 @@
 \newcommand{\fillbankexercise}{\CJKunderline{\hspace*{3.5em}}}
 \newcommand{\choiceexercise}{\hfill(\qquad)}
 
+\AtBeginDocument
+	{
+		\begingroup
+			\catcode `\:=\active
+			\scantokens{ \gdef:{ \mathpunct{\mbox{: \hspace{-0.18em}}}} }
+		\endgroup
+		\mathcode `\:="8000
+	}
+
+
+\makeatletter
+	\begingroup
+		\catcode `\,=\active
+		\def\@x@{\def,{\mathpunct{\mbox{, \hspace{-0.18em}}}}}
+		\expandafter
+	\endgroup
+	\@x@\mathcode`\,="8000
+\makeatother
+
+
+\AtBeginDocument
+	{
+		\begingroup
+			\catcode `\;=\active
+			\scantokens
+				{
+					\gdef;
+					{
+						\mathpunct
+							{
+								\mbox{; \hspace{-0.18em}}
+							}
+					}
+				}
+		\endgroup
+		\mathcode`\;="8000
+	}
 
 \endinput
