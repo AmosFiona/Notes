@@ -243,51 +243,6 @@
 		\end{description}
 	}
 
-% conraposition
-\RequirePackage{hlist}
-
-% for choice-questions
-\newenvironment{options}[5][4]
-	{
-		\begin{hlist}
-			[
-				pre skip 		= 0 pt,
-				post skip 	= 0 pt,
-				label 			= \Alpha{hlist}.,
-				pre label 	=,
-				item offset = 1.2 em,
-				col sep 		= 0.5 em
-			]#1
-			\hitem #2
-			\hitem #3
-			\hitem #4
-			\hitem #5
-	}
-	{
-		\end{hlist}
-	}
-
-% for choice-questions which has numbers
-\newenvironment{options_tag}[5][4]
-	{
-		\begin{hlist}
-			[
-				pre skip 		= 0 pt,
-				post skip 	= 0 pt,
-				show label 	= false,
-				pre label 	=,
-				item offset = 1.2 em,
-				col sep 		= 0.5 em
-			]#1
-			\hitem #2
-			\hitem #3
-			\hitem #4
-			\hitem #5
-	}
-	{
-		\end{hlist}
-	}
-
 % derivative
 \RequirePackage{ bbding }
 \newcounter{ derivatives }
@@ -755,16 +710,6 @@
 		}
 	}
 
-% preview environment fill bank
-% TODO:  <10-04-22, Amos-CXW-Fiona> %
-% fill bank One-key for answer
-
-
-
-% TODO:  <15-04-22, Amos-CXW-Fiona> %
-% analysis environment for One-key
-%TODO zhengming
-
 % assess environment
 \newenvironment{assess}
 	{
@@ -789,9 +734,156 @@
 	}
 	{ \end{tcolorbox}}
 
+% conraposition
+\RequirePackage{hlist}
 
-\newcommand{\fillbankexercise}{\CJKunderline{\hspace*{3.5em}}}
-\newcommand{\choiceexercise}{\hfill(\qquad)}
+% for choice-questions
+\newenvironment{options}[5][4]
+	{
+		\begin{hlist}%
+			[
+				pre skip 		= 0 pt,
+				post skip 	= 0 pt,
+				label 			= \Alph{hlisti}.,
+				pre label 	= {},
+				item offset = 1.2 em,
+				col sep 		= 0.5 em
+			]#1
+			\hitem #2
+			\hitem #3
+			\hitem #4
+			\hitem #5
+	}
+	{
+		\end{hlist}
+	}
+
+\RequirePackage{ifthen}
+
+\newif\ifanswer
+\newcommand{\answer}[1]
+	{
+		\ifthenelse{\isodd{#1}}
+		{\answertrue}
+		{}
+	}
+
+\newlength{\lengthA}
+\newlength{\lengthB}
+\newlength{\lengthC}
+\newlength{\lengthD}
+\newlength{\lengthE}
+\newlength{\lengthF}
+\newlength{\lengthG}
+\newlength{\lengthH}
+
+\newlength{\lengthHalf}
+\newlength{\lengthQuater}
+\newlength{\lengthMax}
+
+% chioce
+\newcommand{\choiceitem}[4]
+	{
+		\settowidth{\lengthA}{A.~#1~~~}
+		\settowidth{\lengthB}{B.~#2~~~}
+		\settowidth{\lengthC}{C.~#3~~~}
+		\settowidth{\lengthD}{D.~#4~~~}
+%		\settowidth{\lengthE}{E.~#5~~~}
+		\ifthenelse{ \lengthtest{\lengthA > \lengthB} }
+			{	\setlength{\lengthMax}{\lengthA} }
+			{	\setlength{\lengthMax}{\lengthB} }
+		\ifthenelse{ \lengthtest{\lengthMax < \lengthC} }
+			{	\setlength{\lengthMax}{\lengthC} }
+			{}
+		\ifthenelse{ \lengthtest{\lengthMax < \lengthD} }
+			{	\setlength{\lengthMax}{\lengthD} }
+			{}
+%		\ifthenelse{ \lengthtest{\lengthMax < \lengthE} }
+%			{	\setlength{\lengthMax}{\lengthE} }
+%			{}
+		\setlength{\lengthHalf}{0.5\linewidth}
+		\setlength{\lengthQuater}{0.25\linewidth}
+		\ifthenelse{ \lengthtest{\lengthMax > \lengthHalf} }
+			{
+				\begin{hlist}%
+					[
+						pre skip 		= 0 pt,
+						post skip 	= 0 pt,
+						label 			= \Alph{hlisti}.,
+						pre label 	= {},
+						item offset = 1.2 em,
+						col sep 		= 0.5 em
+					]1
+					\hitem #1
+					\hitem #2
+					\hitem #3
+					\hitem #4
+					%\hitem #5
+					\end{hlist}
+			}
+			{
+				\ifthenelse{\lengthMax > \lengthQuater}
+					{
+						\begin{hlist}%
+							[
+								pre skip 		= 0 pt,
+								post skip 	= 0 pt,
+								label 			= \Alph{hlisti}.,
+								pre label 	= {},
+								item offset = 1.2 em,
+								col sep 		= 0.5 em
+							]2
+							\hitem #1
+							\hitem #2
+							\hitem #3
+							\hitem #4
+							%\hitem #5
+						\end{hlist}
+					}
+					{
+						\begin{hlist}%
+							[
+								pre skip 		= 0 pt,
+								post skip 	= 0 pt,
+								label 			= \Alph{hlisti}.,
+								pre label 	= {},
+								item offset = 1.2 em,
+								col sep 		= 0.5 em
+							]4
+							\hitem #1
+							\hitem #2
+							\hitem #3
+							\hitem #4
+							%\hitem #5
+						\end{hlist}
+					}
+			}
+	}
+\newcommand{\choicebrackets}[1]
+{
+	\hfill( \  {
+		{
+			\ifanswer
+				{\makebox[0.4 cm][c]{\textcolor{red}{#1}}}
+			\else
+				\phantom{\makebox[0.4 cm][c]{#1}}
+			\fi
+		}\ } )
+}
+
+% fillblank
+\newcommand{\fillblank}[2][2]
+	{
+		\CJKunderline{ \makebox[#1 cm][c]
+											{
+												\ifanswer
+													\textcolor{ red }{ #2 }
+												\else
+													\phantom{ #2 }
+												\fi
+											}
+									}
+	}
 
 \AtBeginDocument
 	{
