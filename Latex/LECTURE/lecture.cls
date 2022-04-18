@@ -559,51 +559,73 @@
 		[
 			{
 				\begin{tikzpicture}[remember picture, overlay]
-					\draw([xshift = 1.5 cm, yshift = 1 cm]current page header area.south west)
-						-- ([xshift = 1.5 cm]current page header area.south west)
-						--++ (7 cm, 0);
-					\node
-						[
-							anchor 									 	= south west,
-							rectangle callout,
-							callout relative pointer 	= {(-25:0.5)},
-							inner sep 								= 1 em,
-							fill 											= gray,
-							text 											= white,
-							font 											= \sf \large
-						]	at (current page header area.south west){\thepage};
-				\node[anchor = west]  at ([xshift = 1.6 cm, yshift = 0.3 cm]current page header area.south west){导学学案};
+%					\draw([xshift = 1.5 cm, yshift = 1 cm]current page header area.south west)
+%						-- ([xshift = 1.5 cm]current page header area.south west)
+%						--++ (7 cm, 0);
+%					\node
+%						[
+%							anchor 									 	= south west,
+%							rectangle callout,
+%							callout relative pointer 	= {(-25:0.5)},
+%							inner sep 								= 1 em,
+%							fill 											= gray,
+%							text 											= white,
+%							font 											= \sf \large
+%						]	at (current page header area.south west){\thepage};
+%				\node[anchor = west]  at ([xshift = 1.6 cm, yshift = 0.3 cm]current page header area.south west){导学学案};
+					\fill[gray]([yshift = -1 mm]current page header area.south east)
+						-- (current page header area.north east)
+						--++ (-6 cm, 0)
+						-- ([xshift = -7 cm, yshift = -1 mm]current page header area.south east)
+						-- cycle;
+					\draw[gray,line width = 1 pt]([yshift = -1 mm]current page header area.south east)
+						--([yshift = -1 mm]current page header area.south west);
 				\end{tikzpicture}
+				\thepage
 			}
-		][][]
+			][][\color{white}\ifthechapter{\CTEXthechapter\quad\chaptertitle}{\chaptertitle}]
 		{
 			\begin{tikzpicture}
 				[remember picture, overlay]
-				\draw([xshift = -1.5 cm, yshift = 1cm]current page header area.south east)
-					-- ([xshift = -1.5 cm]current page header area.south east)
-				--++ (-7 cm, 0);
-				\node
-					[
-						anchor 										= south east,
-						rectangle callout,
-						callout relative pointer 	= {(-155:0.5)},
-						inner sep 								= 1 em,
-						fill 											= gray,
-						text 											= white,
-						font 											= \sf \large
-						]	at (current page header area.south east){\thepage};
-						\node[anchor = east]  at ([xshift = -1.6 cm, yshift = 0.3 cm]current page header area.south east)
-							{
-								\ifthechapter
-									{
-										\CTEXthechapter~\chaptertitle
-									}
-									{
-										\chaptertitile
-									}
-							};
+%				\draw([xshift = -1.5 cm, yshift = 1cm]current page header area.south east)
+%					-- ([xshift = -1.5 cm]current page header area.south east)
+%				--++ (-7 cm, 0);
+%				\node
+%					[
+%						anchor 										= south east,
+%						rectangle callout,
+%						callout relative pointer 	= {(-155:0.5)},
+%						inner sep 								= 1 em,
+%						fill 											= gray,
+%						text 											= white,
+%						font 											= \sf \large
+%						]	at (current page header area.south east){\thepage};
+%						\node[anchor = east]  at ([xshift = -1.6 cm, yshift = 0.3 cm]current page header area.south east)
+%							{
+%								\ifthechapter
+%									{
+%										\CTEXthechapter~\chaptertitle
+%									}
+%									{
+%										\chaptertitle
+%									}
+%							};
+					\fill[gray]([yshift = -1 mm]current page header area.south west)
+						-- (current page header area.north west)
+						--++ (6 cm, 0)
+						-- ([xshift = 7 cm, yshift = -1 mm]current page header area.south west)
+						-- cycle;
+					\draw[gray,line width = 1 pt]([yshift = -1 mm]current page header area.south west)
+						--([yshift = -1 mm]current page header area.south east);
 						\end{tikzpicture}
-					}{}{}
+						\color{white}\ifthesection
+								{\thesection \quad \sectiontitle}
+								{
+									\ifthechapter
+										{\sectiontitle}
+								  	{\chaptertitle}
+								}
+					}{}{\thepage}
 
 	\setfoot
 		[
@@ -734,29 +756,30 @@
 	}
 	{ \end{tcolorbox}}
 
-% conraposition
+% contraposition
 \RequirePackage{hlist}
 
 % for choice-questions
-\newenvironment{options}[5][4]
-	{
-		\begin{hlist}%
-			[
-				pre skip 		= 0 pt,
-				post skip 	= 0 pt,
-				label 			= \Alph{hlisti}.,
-				pre label 	= {},
-				item offset = 1.2 em,
-				col sep 		= 0.5 em
-			]#1
-			\hitem #2
-			\hitem #3
-			\hitem #4
-			\hitem #5
-	}
-	{
-		\end{hlist}
-	}
+%\newenvironment{options}[6][4]
+%	{
+%		\begin{hlist}%
+%			[
+%				pre skip 		= 0 pt,
+%				post skip 	= 0 pt,
+%				label 			= \Alph{hlisti}.,
+%				pre label 	= {},
+%				item offset = 1.2 em,
+%				col sep 		= 0.5 em
+%			]#1
+%			\hitem #2
+%			\hitem #3
+%			\hitem #4
+%			\hitem #5
+%			\hitem #6
+%	}
+%	{
+%		\end{hlist}
+%	}
 
 \RequirePackage{ifthen}
 
@@ -773,22 +796,22 @@
 \newlength{\lengthC}
 \newlength{\lengthD}
 \newlength{\lengthE}
-\newlength{\lengthF}
-\newlength{\lengthG}
-\newlength{\lengthH}
+%\newlength{\lengthF}
+%\newlength{\lengthG}
+%\newlength{\lengthH}
 
 \newlength{\lengthHalf}
 \newlength{\lengthQuater}
 \newlength{\lengthMax}
 
 % chioce
-\newcommand{\choiceitem}[4]
+\newcommand{\choiceitem}[6][4]
 	{
 		\settowidth{\lengthA}{A.~#1~~~}
 		\settowidth{\lengthB}{B.~#2~~~}
 		\settowidth{\lengthC}{C.~#3~~~}
 		\settowidth{\lengthD}{D.~#4~~~}
-%		\settowidth{\lengthE}{E.~#5~~~}
+		\settowidth{\lengthE}{E.~#5~~~}
 		\ifthenelse{ \lengthtest{\lengthA > \lengthB} }
 			{	\setlength{\lengthMax}{\lengthA} }
 			{	\setlength{\lengthMax}{\lengthB} }
@@ -798,9 +821,9 @@
 		\ifthenelse{ \lengthtest{\lengthMax < \lengthD} }
 			{	\setlength{\lengthMax}{\lengthD} }
 			{}
-%		\ifthenelse{ \lengthtest{\lengthMax < \lengthE} }
-%			{	\setlength{\lengthMax}{\lengthE} }
-%			{}
+		\ifthenelse{ \lengthtest{\lengthMax < \lengthE} }
+			{	\setlength{\lengthMax}{\lengthE} }
+			{}
 		\setlength{\lengthHalf}{0.5\linewidth}
 		\setlength{\lengthQuater}{0.25\linewidth}
 		\ifthenelse{ \lengthtest{\lengthMax > \lengthHalf} }
@@ -814,12 +837,14 @@
 						item offset = 1.2 em,
 						col sep 		= 0.5 em
 					]1
-					\hitem #1
 					\hitem #2
 					\hitem #3
 					\hitem #4
-					%\hitem #5
-					\end{hlist}
+					\hitem #5
+					\ifnum #1>4
+						\hitem #6
+					\fi
+				\end{hlist}
 			}
 			{
 				\ifthenelse{\lengthMax > \lengthQuater}
@@ -833,11 +858,13 @@
 								item offset = 1.2 em,
 								col sep 		= 0.5 em
 							]2
-							\hitem #1
 							\hitem #2
 							\hitem #3
 							\hitem #4
-							%\hitem #5
+							\hitem #5
+							\ifnum #1>4
+							\hitem #6
+							\fi
 						\end{hlist}
 					}
 					{
@@ -850,11 +877,13 @@
 								item offset = 1.2 em,
 								col sep 		= 0.5 em
 							]4
-							\hitem #1
 							\hitem #2
 							\hitem #3
 							\hitem #4
-							%\hitem #5
+							\hitem #5
+							\ifnum #1>4
+							\hitem #6
+							\fi
 						\end{hlist}
 					}
 			}
@@ -874,15 +903,37 @@
 % fillblank
 \newcommand{\fillblank}[2][2]
 	{
-		\CJKunderline{ \makebox[#1 cm][c]
+		\underline{\makebox[1 cm][c]
 											{
 												\ifanswer
-													\textcolor{ red }{ #2 }
+													\textcolor{red}{ #2 }
 												\else
 													\phantom{ #2 }
 												\fi
 											}
 									}
+	}
+
+% src
+\newcommand{\refquestion}[2]
+	{
+		\textcolor{blue}{ \
+											{
+												\ifrefquestion
+													{#1年#2}
+												\else
+													\hspace*{ -1 em }
+												\fi
+											} \
+									}
+	}
+
+\newif\ifrefsource
+\newcommand{\refsource}[1]
+	{
+		\ifthenelse{\isodd{#1}}
+		{\refsourcetrue}
+		{}
 	}
 
 \AtBeginDocument
