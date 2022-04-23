@@ -40,7 +40,7 @@
 \medmuskip = 3mu plus 1mu minus 2mu
 \thinmuskip = 3mu plus 2mu
 
-\DeclareMathSizes{10.5bp}{10.5bp}{6.8pt}{6pt}
+\DeclareMathSizes{10.5 bp}{10.5 bp}{6.8 pt}{6 pt}
 
 % line gap
 \RequirePackage[bodytextleadingratio=1.5,restoremathleading=true]{zhlineskip}
@@ -50,15 +50,15 @@
 \RequirePackage{ geometry }
 \geometry
 	{
-		paperheight = 29.7cm,
-		paperwidth 	= 21cm,
-		width 			= 17cm,
-		height 			= 24.7cm,
-		left 				= 1.8cm,
-		right 			= 1.6cm,
-		top 				= 2.5cm,
-		bottom 			= 2.5cm,
-		headsep 		= 3.2em,
+		paperheight = 29.7 cm,
+		paperwidth 	= 21 cm,
+		width 			= 17 cm,
+		height 			= 24.7 cm,
+		left 				= 1.8 cm,
+		right 			= 1.6 cm,
+		top 				= 2.5 cm,
+		bottom 			= 2.5 cm,
+		headsep 		= 3.2 em,
 	}
 
 % draw Pictures
@@ -90,14 +90,79 @@
 %	}
 
 % default lines
-\SetMCRule{
-		width 			= 0.5 pt,
-	}
+\SetMCRule{width = 0.5 pt}
 
 % chapter title
 \RequirePackage{ etoolbox }
-\setcounter{secnumdepth}{3}
 
+% textcircled   must be less 999
+\newlength\szg
+\newcommand\quan[1]
+	{
+		\settoheight\szg{#1}
+		\tikz[baseline]
+			{
+				\pgfmathparse
+					{
+						ifthenelse(#1 < 10, 0.9, ifthenelse(#1 < 100, 0.7, 0.45))
+					}
+				\let\hfs\pgfmathresult
+				\node at (0,\szg/2) {\makebox[0.35em][c]{\scalebox{\hfs}[1]{#1}}};
+				\draw (0,\szg/2) circle (\szg/2+0.28ex);
+			}
+	}
+
+\newcommand\fquan[1]
+	{
+		\settoheight\szg{#1}
+		\tikz[baseline]
+			{
+				\pgfmathparse
+					{
+						ifthenelse(#1 < 10, 0.9, ifthenelse(#1 < 100, 0.7, 0.45))
+					}
+				\let\hfs\pgfmathresult
+				\node at (0,\szg/2) {\makebox[0.35em][c]{\scalebox{\hfs}[1]{#1}}};
+				\draw (-1ex,-0.3ex) rectangle (1ex,1.8ex);
+			}
+	}
+
+\newcommand\hfquan[1]
+	{
+		\settoheight\szg{#1}
+		\tikz[baseline]
+			{
+				\pgfmathparse
+					{
+						ifthenelse(#1 < 10, 0.9, ifthenelse(#1 < 100, 0.6, 0.4))
+					}
+				\let\hfs\pgfmathresult
+				\filldraw[black] (-1ex,-0.3ex) rectangle (1ex,1.8ex);
+				\node[white] at (0,\szg/2) {\makebox[0.35em][c]{\scalebox{\hfs}[1]{\plt\textbf{#1}}}};
+			}
+	}
+
+\newcommand\hquan[1]
+	{
+		\settoheight\szg{#1}
+		\tikz[baseline]
+			{
+				\pgfmathparse
+					{
+						ifthenelse(#1 < 10, 0.9, ifthenelse(#1 < 100, 0.6, 0.4))
+					}
+				\let\hfs\pgfmathresult
+				\filldraw (0,\szg/2) circle (\szg/2+0.28ex);
+				\node[white] at (0,\szg/2) {\makebox[0.35em][c]{\scalebox{\hfs}[1]{{\textbf{#1}}}}};
+			}
+	}
+\robustify{\quan}
+\robustify{\hquan}
+\robustify{\fquan}
+\robustify{\hfquan}
+
+% contents
+\setcounter{secnumdepth}{3}
 \RequirePackage[explicit,indentafter,pagestyles]{titlesec}
 
 \newcounter{countchapters}
@@ -106,36 +171,11 @@
 \pretocmd{\multicols}{\global\multicolsusedtrue}{}{}
 \apptocmd{\endmulticols}{\global\multicolsusedfalse}{}{}
 
-\titleformat{\chapter}
-	{	\Huge\bfseries }
-	{}
-	{ 0 em }
-	{
-		\begin{tikzpicture}[remember picture, overlay]
-			\fill[gray!30]
-				(current page.north west)[rounded corners = 3 cm]
-				--++ (1 cm,-4 cm)[rounded corners = 0 cm]
-				-- ([yshift=-4cm]current page.north east) -- (current page.north east)
-				-- cycle;
-			\node
-				[
-					circular sector,
-					circular sector angle = 110,
-					shape border rotate 	= 90,
-					fill 									= gray!70,
-					right,
-					text 									= white,
-					font 									= \bf \huge,
-					inner sep 						= 20 pt
-				] at ([shift = {(2 cm, -2 cm)}]current page.north west){\CTEXthechapter};
-			\node
-				[
-					font 			= \bf \huge,
-					inner sep = 0 mm,
-					anchor 		= west
-				] at ([shift = {(10 cm, -2.5 cm)}]current page.north west){#1};
-		\end{tikzpicture}
-	}
+\titleformat{\chapter}[display]
+	{	\bfseries \StandardArial \Huge \filleft }
+	{ \CTEXthechapter }
+	{ 0.2 em }
+	{ \titlerule[2 pt] \centering \vspace{0.4 em} #1 }
 	[
 		\ifnum\value{chapter} > 0
 			\addtocontents{toc}
@@ -147,21 +187,22 @@
 		\stepcounter{countchapters}
 	]
 
+	% For title{contents} page 目录排放设定
 \titleformat{name=\chapter,numberless}
-	{	\Huge \bfseries }
+	{	\Huge }
 	{}
-	{	0em }
+	{	0 em }
 	{
 		\begin{tikzpicture}[remember picture, overlay]
-			\draw[line width = 1.2 pt]
-				([yshift=-3cm]current page.north east) --++ (-6cm,0);
-			\node at ([shift={(-4.5cm,-2.5cm)}]current page.north east){#1};
-			\node at ([shift={(-4.5cm,-3.5cm)}]current page.north east){Contents};
+			\draw[line width = 1.2 pt]([xshift = -2 cm,yshift = -3 cm]current page.north east)
+			--++ (-5 cm, 0 cm);
+			\node at([shift= {(-4.5 cm, -2.5 cm)}]current page.north east){#1};
+			\node at([shift= {(-4.5 cm, -3.5 cm)}]current page.north east){Contents};
 		\end{tikzpicture}
 	}
 	[]
 
-\titlespacing*{\chapter}{0em}{0em}{1em}
+\titlespacing*{\chapter}{0 em}{0 em}{1 em}
 
 \pretocmd{\chapter}
 	{
@@ -186,13 +227,12 @@
 \titleformat{\section}
 	{	\bf \Large \centering	}
 	{	\faBook ~ \thesection	}
-	{ 1em	}
+	{1 em}
 	{ #1 }
 	[]
 
-\renewcommand{\thesubsubsection}{题型\aracbic{subsubsection}}
-
-\titleformat{name=\subsubsection,numberless}
+\renewcommand{\thesubsubsection}{题型\arabic{subsubsection}}
+\titleformat{\subsubsection}
 	{ \bfseries \large }
 	{}
 	{ 0em }
@@ -200,21 +240,21 @@
 		\begin{tcolorbox}%
 			[
 				nobeforeafter,
-				width 						= 0.5 \textwidth - 1 em,
+				width 						= \textwidth - 1 em,
 				arc 							= 0 mm,
+				left 							= 0.5 mm,
+				top 							= 1 mm,
+				bottom 						= 1 mm,
+				boxrule 					= 0 mm,
+				colback 					= gray!79!black,
+				sidebyside,
+				sidebyside gap 		= 1 mm,
+				lefthand ratio 		= 0.17,
+				fontupper 				= \color{white},
 				enhanced,
 					bicolor,
-					lefthand ratio 	= 0.17,
-					sidebyside,
-					sidebyside gap 	= 1 mm
-					colback 				= gray!79!black,
 					colbacklower 		= gray!20,
-					left 						= 0.5 mm,
-					fontupper 			= \color{white},
-					halign 					= left,
-					boxrule 				= 0 mm,
-					top 						= 1 mm,
-					bottom 					= 1 mm
+					halign 					= left
 			]\thesubsubsection \tcblower #1
 		\end{tcolorbox}
 	}
@@ -232,48 +272,42 @@
 
 \renewcommand{\cftsecpagefont}{\large}
 \renewcommand{\cftsecfont}{\large}
-\renewcommand{\cftsecindent}{0em}
-\renewcommand{\cftbeforesecskip}{0.3em}
+\renewcommand{\cftsecindent}{0 em}
+\renewcommand{\cftbeforesecskip}{0.3 em}
 
 \renewcommand{\cftsubsecpagefont}{\large}
 \renewcommand{\cftsubsecfont}{\large}
-\renewcommand{\cftsubsecindent}{2.5em}
-\renewcommand{\cftbeforesubsecskip}{0.3em}
+\renewcommand{\cftsubsecindent}{2.5 em}
+\renewcommand{\cftbeforesubsecskip}{0.3 em}
 
 \renewcommand{\cftsubsubsecfont}{\StandardArial}
-\renewcommand{\cftsubsecindent}{2.3em}
-\renewcommand{\cftbeforesubsecskip}{3em}
+\renewcommand{\cftsubsubsecindent}{4.5 em}
+\renewcommand{\cftbeforesubsubsecskip}{0.3 em}
 
+% PageStyle for contents
 \RequirePackage{titletoc}
-\titlecontents{chapter}[1em]
+\titlecontents{chapter}[1 em]
 	{	\large \filcenter }
 	{	\bfseries \thecontentslabel	}
 	{}
 	{}
 	[
-		{ \titlerule[1pt] \addvspace{1em}}
+		{ \titlerule[1 pt] \addvspace{1 em}}
 	]
 
 % header footer
 \RequirePackage{zhlipsum}
 \RequirePackage{calc}
 
-\newzhlipsum{logion}
-	{
-		{what it is1!},
-		{what it is2!},
-		{what it is3!},
-		{what it is4!},
-		{what it is5!},
-		{what it is6!},
-		{what it is7!},
-		{what it is8!},
-		{what it is9!},
-		{what it is10!},
-		{what it is11!},
-		{what it is12!},
-		{what it is13!}
-	}
+% Logions for  footers
+\input{./Logions/logions.tex}
+%\newzhlipsum{logion}
+%{
+%		{what it is1!},
+%		{what it is2!},
+%		{what it is3!},
+%		{what it is13!}
+%}
 
 \newpagestyle{math}
 	{
@@ -281,20 +315,6 @@
 		[
 			{
 				\begin{tikzpicture}[remember picture, overlay]
-%					\draw([xshift = 1.5 cm, yshift = 1 cm]current page header area.south west)
-%						-- ([xshift = 1.5 cm]current page header area.south west)
-%						--++ (7 cm, 0);
-%					\node
-%						[
-%							anchor 									 	= south west,
-%							rectangle callout,
-%							callout relative pointer 	= {(-25:0.5)},
-%							inner sep 								= 1 em,
-%							fill 											= gray,
-%							text 											= white,
-%							font 											= \sf \large
-%						]	at (current page header area.south west){\thepage};
-%				\node[anchor = west]  at ([xshift = 1.6 cm, yshift = 0.3 cm]current page header area.south west){导学学案};
 					\fill[gray]([yshift = -1 mm]current page header area.south east)
 						-- (current page header area.north east)
 						--++ (-6 cm, 0)
@@ -309,29 +329,6 @@
 		{
 			\begin{tikzpicture}
 				[remember picture, overlay]
-%				\draw([xshift = -1.5 cm, yshift = 1cm]current page header area.south east)
-%					-- ([xshift = -1.5 cm]current page header area.south east)
-%				--++ (-7 cm, 0);
-%				\node
-%					[
-%						anchor 										= south east,
-%						rectangle callout,
-%						callout relative pointer 	= {(-155:0.5)},
-%						inner sep 								= 1 em,
-%						fill 											= gray,
-%						text 											= white,
-%						font 											= \sf \large
-%						]	at (current page header area.south east){\thepage};
-%						\node[anchor = east]  at ([xshift = -1.6 cm, yshift = 0.3 cm]current page header area.south east)
-%							{
-%								\ifthechapter
-%									{
-%										\CTEXthechapter~\chaptertitle
-%									}
-%									{
-%										\chaptertitle
-%									}
-%							};
 					\fill[gray]([yshift = -1 mm]current page header area.south west)
 						-- (current page header area.north west)
 						--++ (6 cm, 0)
@@ -351,6 +348,7 @@
 
 	\setfoot
 		[
+		高等数学~\rule[-0.4 mm]{0.2 em}{1 em}~重排
 			\ifthechapter
 				{
 					{
@@ -365,8 +363,9 @@
 							]	at ([yshift = -2 em ]current page footer area.west)
 										{
 											\parbox{\textwidth - 5 mm}
-												{%\CTEXindent
-													\zhlipsum[\thepage][name=logion]}
+												{%
+													\CTEXindent	\zhlipsum[\thepage][name=logion]
+												}
 										};
 						\end{tikzpicture}
 					}
@@ -378,15 +377,14 @@
 						\fill[gray!20]
 							([yshift = -1.5 cm]current page footer area.south west)
 							rectangle (current page footer area.north east);
-						\node
-							[
-								anchor 	= west,
-								font 		= \StandardArial
-							]	at ([yshift = -2 em ]current page footer area.west)
-										{
-											\parbox{\textwidth - 5 mm}
-												{\CTEXindent \zhlipsum[\thepage][name=logion]}
-										};
+						\node [ anchor = west,	font = \StandardArial ]
+							at ([yshift = -2 em ]current page footer area.west)
+							{
+								\parbox{\textwidth - 5 mm}
+									{
+										\CTEXindent \zhlipsum[\thepage][name=logion]
+									}
+							};
 						\end{tikzpicture}
 		}{}{}
 	}
@@ -428,7 +426,7 @@
 \setenumerate[2]
 	{
 		align 			=left,
-		label 			= ({\makebox[0.8 em]{\arrabic*}}),
+		label 			= ({\makebox[0.8 em]{\arabic*}}),
 		labelwidth 	= 1.7 em,
 		labelsep 		= 0 em,
 		leftmargin 	= 1.7 em
@@ -453,15 +451,15 @@
 	{
 		nobeforeafter,
 		valign = center,
+		width 				= 0.495 \textwidth,
+		bottom 				= 0 mm,
+		colback 			= white,
+		colframe 			= gray!70!black,
+		sharp corners = east,
+		arc is angular,
+		arc 					= 2 mm,
+		leftrule 			= 0 mm,
 		enhanced,
-			width 				= 0.495 \textwidth,
-			bottom 				= 0 mm,
-			colback 			= white,
-			colframe 			= gray!70!black,
-			sharp corners = east,
-			arc is angular,
-			arc 					= 2 mm,
-			leftrule 			= 0 mm,
 			attach boxed title to top center =
 				{
 					xshift  = 0.29 cm,
@@ -483,7 +481,7 @@
 								-- ([xshift = 1 mm, yshift = -1 mm]frame.north east)
 								-- (frame.south east)
 								-- (frame.south west)
-								-- ([xshift = -1 mm, yshift = -1 mm]frame.north west)[sharp coners]
+								-- ([xshift = -1 mm, yshift = -1 mm]frame.north west)[sharp corners]
 								-- cycle;
 						},
 					interior engine = empty,
@@ -516,15 +514,15 @@
 		left skip 			= -1 mm,
 		nobeforeafter,
 		valign 					= center,
+		width 				= 0.495 \textwidth,
+		bottom 				= 0 mm,
+		colback 			= white,
+		colframe 			= gray!70!black,
+		sharp corners = west,
+		arc is angular,
+		arc 					= 2 mm,
+		rightrule 		= 0 mm,
 		enhanced,
-			width 				= 0.495 \textwidth,
-			bottom 				= 0 mm,
-			colback 			= white,
-			colframe 			= gray!70!black,
-			sharp corners = west,
-			arc is angular,
-			arc 					= 2 mm,
-			rightrule 		= 0 mm,
 			attach boxed title to top center =
 				{
 					xshift  = 0.29cm,
@@ -546,7 +544,7 @@
 								-- ([xshift = 1 mm, yshift = -1 mm]frame.north east)
 								-- (frame.south east)
 								-- (frame.south west)
-								-- ([xshift = -1 mm, yshift = -1 mm]frame.north west)[sharp coners]
+								-- ([xshift = -1 mm, yshift = -1 mm]frame.north west)[sharp corners]
 								-- cycle;
 						},
 					interior engine = empty,
@@ -585,8 +583,8 @@
 				align 				= left,
 				labelwidth 		= 1 em,
 				labelsep 			= 0 em,
-				leftmargin 	= 1 em,
-				label = {\bf \arabic*.}
+				leftmargin 		= 1 em,
+				label 				= {\bfseries \arabic*.}
 			]
 	}
 	{
@@ -594,23 +592,24 @@
 	}
 
 % thrm
+\newcounter{thrmcounters}[section]
 \newtcolorbox{Theorems}
 	{
+		breakable,
+		parbox 				= false,
+		left 					= 0 pt,
+		top 					= 5 mm,
+		right  				= 0 mm,
+		bottom 				= 0 mm,
+		boxrule 			= 0.5 mm,
+		title 				= {定理~\refstepcounter{thrmcounters}~\thethrmcounters~ $\blacktriangleright$ },
+		coltitle      = white,   % title colors
+		fonttitle     = {\bfseries \large},
+		colframe 			= cyan,   % rule colors
+		colback 			= gray!10,
+		fontupper 		= \indent \StandardArial,
+		arc 					= 0 mm,
 		enhanced,
-			breakable,
-			boxrule 			= 0.5 mm,
-			fonttitle     = {\bfseries \large}
-			title 				= {定理},
-			left 					= 0 pt,
-			top 					= 5 mm,
-			right  				= 0 mm,
-			bottom 				= 0 mm,
-			colframe 			= black,
-			parbox 				= false,
-			fontupper 		= \indent \StandardArial,
-			arc 					= 3 mm,
-			colback 			= gray!10,
-			coltitle      = black,
 			attach boxed title to top left =
 				{
 					xshift 			= 3 mm,
@@ -618,30 +617,30 @@
 				},
 			boxed title style =
 				{
-					sharp coners = uphill,
-					colback 		 = white,
-					arc 				 = 3mm,
+					sharp corners = uphill,
+					colback 		 = cyan, % titlebox colors
+					arc 				 = 1 mm,
 				}
 	}
 
 % generalize
 \newtcolorbox{MethodGeneralize}
 	{
+		breakable,
+		parbox 				= false,
+		boxrule 			= 0.5 mm,
+		title 				= {\bf 方法归纳},
+		coltitle      = white,
+		left 					= 0 pt,
+		top 					= 2 mm,
+		bottom 				= 0 mm,
+		colframe 			= black,
+		colback 			= gray!10,
+		colbacktitle  = gray,
+		fontupper 		= \indent \StandardArial,
+		arc is angular,
+		arc 					= 1 mm,
 		enhanced,
-			breakable,
-			boxrule 			= 0.5 mm,
-			title 				= {\bf 方法归纳},
-			left 					= 0 pt,
-			top 					= 2 mm,
-			bottom 				= 0 mm,
-			colframe 			= black,
-			parbox 				= false,
-			fontupper 		= \indent \StandardArial,
-			arc is angular,
-			arc 					= 1 mm,
-			colback 			= gray!10,
-			colbacktitle  = gray,
-			coltitle      = white,
 			attach boxed title to top center =
 				{
 					yshift 			= -0.25 mm - \tcboxedtitleheight/2,
@@ -686,7 +685,7 @@
 				labelwidth 		= 1.5 em,
 				labelsep 			= 0 em,
 				leftmargin 	 	= 1.5 em,
-				label 				= {\bf \arabic*.}
+				label 				= {\bf \arabic*.},
 				series 				= homeworks,
 				resume 				= homeworks
 			]
@@ -882,9 +881,10 @@
 }
 
 % fillblank
+\RequirePackage{xeCJKfntef}
 \newcommand{\fillblank}[2][2]
 	{
-		\underline{\makebox[1 cm][c]
+		\CJKunderline{\makebox[1 cm][c]
 											{
 												\ifanswer
 													\textcolor{red}{ #2 }
@@ -916,10 +916,10 @@
 		{
 			invisible,
 			breakable,
+			colback = white,
+			colframe = white,
+			height = 1.7cm,
 			enhanced,
-				colback = white,
-				colframe = white,
-				height = 1.7cm,
 				overlay =
 					{
 						\foreach \a in {-1.2, -2.8, -4.4}
@@ -935,44 +935,137 @@
 	{
 		proof/.style =
 		{
+			invisible,
 			breakable,
+			colback = white,
+			colframe = white,
+			height = 1.7cm,
 			enhanced,
-				colback = white,
-				colframe = white,
-				height = 1.7cm,
 				overlay =
 					{
 						\foreach \a in {-1.2, -2.8, -4.4}
 						\draw[dashed]([shift={(3.2em, \a em)}]frame.north west)
 							--([shift={(0 , \a em)}]frame.north east);
 						\node at ([shift = {(3.8em, -0.7em)}]frame.north west){\bf 证: };
-				}
+					}
 		}
 	}
 
 % assess environment
+%\tcbset
+%	{
+%		assess/.style =
+%			{
+%				parbox 				= false,
+%				before upper 	= \indent,
+%				fontupper 		= \StandardArial,
+%				breakable,
+%				colback 			= white,
+%				colframe 			= black,
+%				leftrule 			= 1.5 pt,
+%				rightrule 		= 0 mm,
+%				bottomrule 		= 0 mm,
+%				toprule 			= 0 mm,
+%				arc 					= 0 mm,
+%				top 					= 0 mm,
+%				bottom 				= 0 mm,
+%				left 					= 0 mm,
+%				right 				= 0 mm,
+%				title 				= {\bf 点评}
+%			}
+%	}
 \tcbset
 	{
 		assess/.style =
-			{
-				parbox 				= false,
-				before upper 	= \indent,
-				fontupper 		= \StandardArial,
-				breakable,
-				colback 			= white,
-				colframe 			= black,
-				leftrule 			= 1.5 pt,
-				rightrule 		= 0 mm,
-				bottomrule 		= 0 mm,
-				toprule 			= 0 mm,
-				arc 					= 0 mm,
-				top 					= 0 mm,
-				bottom 				= 0 mm,
-				left 					= 0 mm,
-				right 				= 0 mm,
-				title 				= {\bf 点评}
-			}
+		{
+			invisible,
+			breakable,
+			colback = white,
+			colframe = white,
+			height = 1.7cm,
+			enhanced,
+				overlay =
+					{
+						\foreach \a in {-1.2, -2.8, -4.4}
+						\draw[dashed]([shift={(3.2em, \a em)}]frame.north west)
+							--([shift={(0 , \a em)}]frame.north east);
+						\node at ([shift = {(3.8em, -0.7em)}]frame.north west){\bf 注: };
+					}
+		}
 	}
+
+% Onekey for analysis, assess and proof
+\RequirePackage{comment}
+
+\newenvironment{PROBLEMANSWERS}
+	{
+		\ifanswer
+			\newenvironment{Analysis}
+			 	{
+			 		\par
+			 		{\bfseries 解析:} \quad
+			 	}
+			 {\par}
+
+			\newenvironment{Proof}
+			 	{
+			 		\par
+			 		{\bfseries 证明:} \quad
+			 	}
+			 {\par}
+
+			\newenvironment{Assess}
+			 	{
+			 		\par
+			 		{\bfseries 点评:} \quad
+			 	}
+			 	{\par}
+		\else
+
+			\newenvironment{Analysis}
+			 	{
+			 		\par
+			 		{\bfseries 解析:} \quad
+			 	}
+			 	{\par}
+			\specialcomment{Analysis}
+				{
+					\begin{tcolorbox}[analysis]
+				}
+				{
+					\end{tcolorbox}
+				}
+
+			\newenvironment{Proof}
+			 	{
+			 		\par
+			 		{\bfseries 证明:} \quad
+			 	}
+			 	{\par}
+			\specialcomment{Proof}
+				{
+					\begin{tcolorbox}[proof]
+				}
+				{
+					\end{tcolorbox}
+				}
+
+			\newenvironment{Assess}
+			 	{
+			 		\par
+			 		{\bfseries 点评:} \quad
+			 	}
+			 	{\par}
+			\specialcomment{Assess}
+				{
+					\begin{tcolorbox}[assess]
+				}
+				{
+					\end{tcolorbox}
+				}
+		\fi
+	}
+	{}
 
 % analysis
 %\newcommand{analysis}[1]

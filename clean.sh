@@ -11,6 +11,7 @@ rm ./Latex/*.synctex\(busy\)
 rm ./Latex/*.xdv
 rm ./Latex/*.pdf
 rm ./Latex/*.toc
+rm ./Latex/*.cut
 
 rm ./Latex/COURSE/*.aux
 rm ./Latex/COURSE/*.fdb_latexmk
@@ -21,8 +22,10 @@ rm ./Latex/COURSE/*.synctex\(busy\)
 rm ./Latex/COURSE/*.xdv
 rm ./Latex/COURSE/*.pdf
 rm ./Latex/COURSE/*.toc
+rm ./Latex/COURSE/*.cut
 
 rm ./Latex/LECTURE/*.aux
+rm ./Latex/LECTURE/Sections/*.aux
 rm ./Latex/LECTURE/*.fdb_latexmk
 rm ./Latex/LECTURE/*.fls
 rm ./Latex/LECTURE/*.log
@@ -31,6 +34,7 @@ rm ./Latex/LECTURE/*.synctex\(busy\)
 rm ./Latex/LECTURE/*.xdv
 rm ./Latex/LECTURE/*.pdf
 rm ./Latex/LECTURE/*.toc
+rm ./Latex/LECTURE/*.cut
 
 rm ./Latex/examples/*.aux
 rm ./Latex/examples/*.fdb_latexmk
@@ -41,6 +45,7 @@ rm ./Latex/examples/*.synctex\(busy\)
 rm ./Latex/examples/*.xdv
 rm ./Latex/examples/*.pdf
 rm ./Latex/examples/*.toc
+rm ./Latex/examples/*.cut
 
 rm ./Latex/EXAM/*.aux
 rm ./Latex/EXAM/*.fdb_latexmk
@@ -51,4 +56,5 @@ rm ./Latex/EXAM/*.synctex\(busy\)
 rm ./Latex/EXAM/*.xdv
 rm ./Latex/EXAM/*.pdf
 rm ./Latex/EXAM/*.toc
+rm ./Latex/EXAM/*.cut
 

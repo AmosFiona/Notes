@@ -9,7 +9,8 @@ Latex/**/*.synctex.gz
 Latex/**/*.xdv
 Latex/**/*.pdf
 Latex/**/*.toc
-Latex/**/*.*(busy)
+Latex/**/*.cut
+Latex/**/*.synctex\(busy\)
 
 Markdowns/TODO
 Markdowns/**/*.pdf
