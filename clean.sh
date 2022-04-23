@@ -1,7 +1,7 @@
 #! /bin/sh
 
 #chomd +x clean.sh for users
-
+#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
 rm ./Latex/*.aux
 rm ./Latex/*.fdb_latexmk
 rm ./Latex/*.fls

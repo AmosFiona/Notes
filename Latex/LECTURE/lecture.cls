@@ -1,3 +1,5 @@
+%! program =xeLatex
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{lecture}
 \LoadClass[fontset=none]{ctexbook}
@@ -66,311 +68,31 @@
 	\usetikzlibrary{ shapes.geometric }
 	\usetikzlibrary{ positioning }
 
-% Column shape specialized training
-\newcommand{\specialtraining}[1]
-	{
-		\begin{center}
-			\begin{tikzpicture}
-				\node
-					[
-						cloud callout,
-						cloud puffs 		= 15,
-						aspect 					= 4.5,
-						cloud puff arc 	= 120,
-						draw,
-						text 						= black,
-						font 						= \bf \Large,
-						shading 				= ball,
-						ball color 			= gray!20
-					]at (0,0){#1};
-			\end{tikzpicture}
-		\end{center}
-	}
-
-% list environments
-\RequirePackage{ enumitem }
-\setenumerate
-	{
-		itemsep 	= 0 pt,
-		partopsep = 0 pt,
-		parsep 		= \parskip,
-		topsep 		= 0 pt
-	}
-\setenumerate[2]
-	{
-		align 			=left,
-		label 			= ({\makebox[0.8 em]{\arrabic*}}),
-		labelwidth 	= 1.7 em,
-		labelsep 		= 0 em,
-		leftmargin 	= 1.7 em
-	}
-\setdescription
-	{
-		itemsep 	= 0 pt,
-		partopsep = 0 pt,
-		parsep 		= \parskip,
-		topsep 		= 0 pt
-	}
-
-% colors boxder macro
-\RequirePackage[most]{tcolorbox}
-
-% Box real-width for needing
-\RequirePackage{ varwidth }
-
-% Learnning Objectives Box
-\newtcolorbox{LearnningObjectivesBox}[1][]
-	{
-		nobeforeafter,
-		valign = center,
-		enhanced,
-			width 				= 0.495 \textwidth,
-			bottom 				= 0 mm,
-			colback 			= white,
-			colframe 			= gray!70!black,
-			sharp corners = east,
-			arc is angular,
-			arc 					= 2 mm,
-			leftrule 			= 0 mm,
-			attach boxed title to top center =
-				{
-					xshift  = 0.29 cm,
-					yshift* = 1 mm - \tcboxedtitleheight
-				},
-			varwidth boxed title* = -3 cm,
-			boxed title style =
-				{
-					frame code =
-						{
-							\path[fill=gray!70!black]
-								([yshift = -1 mm, xshift = -1 mm]frame.north west)
-								arc[start angle = 0, end angle = 180, radius = 1 mm]
-								([yshift = -1 mm, xshift = 1 mm]frame.north east)
-								arc[start angle = 180, end angle = 0, radius = 1 mm];
-							\path[fill = gray!70!black]
-								([xshift = -2 mm]frame.north west)
-								-- ([xshift = 2 mm]frame.north east)[rounded corners = 1 mm]
-								-- ([xshift = 1 mm, yshift = -1 mm]frame.north east)
-								-- (frame.south east)
-								-- (frame.south west)
-								-- ([xshift = -1 mm, yshift = -1 mm]frame.north west)[sharp coners]
-								-- cycle;
-						},
-					interior engine = empty,
-				},
-			fonttitle = \zihao{4}\bfseries,
-			title 		= {学习目标},
-			height 		= #1 cm
-	}
-
-% LearnningObjectives particularize
-\newenvironment{learningtargets}
-	{
-		\begin{enumerate}
-			[
-				label 			= \arabic*.,
-				align 			= left,
-				labelindent = 0 em,
-				labelwidth  = 1 em,
-				labelsep  	= 0 em,
-				leftmargin 	= 1 em
-			]\StandardArial
-	}
-	{
-		\end{enumerate}
-	}
-
-% Key and Difficulty Box
-\newtcolorbox{KeyandDifficultyBox}[1][]
-	{
-		left skip 			= -1 mm,
-		nobeforeafter,
-		valign 					= center,
-		enhanced,
-			width 				= 0.495 \textwidth,
-			bottom 				= 0 mm,
-			colback 			= white,
-			colframe 			= gray!70!black,
-			sharp corners = west,
-			arc is angular,
-			arc 					= 2 mm,
-			rightrule 		= 0 mm,
-			attach boxed title to top center =
-				{
-					xshift  = 0.29cm,
-					yshift* = 1 mm - \tcboxedtitleheight
-				},
-			varwidth boxed title* = -3 cm,
-			boxed title style =
-				{
-					frame code =
-						{
-							\path[fill=gray!70!black]
-								([yshift = -1 mm, xshift = -1 mm]frame.north west)
-								arc[start angle = 0, end angle = 180, radius = 1 mm]
-								([yshift = -1 mm, xshift = 1 mm]frame.north east)
-								arc[start angle = 180, end angle = 0, radius = 1 mm];
-							\path[fill = gray!70!black]
-								([xshift = -2 mm]frame.north west)
-								-- ([xshift = 2 mm]frame.north east)[rounded corners = 1 mm]
-								-- ([xshift = 1 mm, yshift = -1 mm]frame.north east)
-								-- (frame.south east)
-								-- (frame.south west)
-								-- ([xshift = -1 mm, yshift = -1 mm]frame.north west)[sharp coners]
-								-- cycle;
-						},
-					interior engine = empty,
-				},
-			fonttitle = \zihao{4}\bfseries,
-			title 		= {重点难点},
-			height 		= #1 cm
-	}
-
-% KeyandDifficulties particularize
-\newenvironment{learningkeys}
-	{
-		\begin{description}
-			[
-				align 			= left,
-				labelindent = 0 em,
-				labelwidth  = 3 em,
-				labelsep  	= 0 em,
-				leftmargin 	= 1 em,
-				font 				= \bf
-			]\StandardArial
-	}
-	{
-		\end{description}
-	}
-
-% derivative
-\RequirePackage{ bbding }
-\newcounter{ derivatives }
-\newenvironment{DerivativeExamples}
-	{
-		\HandPencilLeft \fbox{ \bf\thesubsubsection 对接练习 }
-		\begin{enumerate}
-			[
-				labelindent 	= 0 pt,
-				align 				= left,
-				labelwidth 		= 1 em,
-				labelsep 			= 0 em,
-				leftmargin 	= 1 em,
-				label = {\bf \arabic*.}
-			]
-	}
-	{
-		\end{enumerate}
-	}
-
-% generalize
-\newtcolorbox{MethodGeneralize}
-	{
-		enhanced,
-			breakable,
-			boxrule 			= 0.5 mm,
-			title 				= {\bf 方法归纳},
-			left 					= 0 pt,
-			top 					= 2 mm,
-			bottom 				= 0 mm,
-			colframe 			= black,
-			parbox 				= false,
-			fontupper 		= \indent \StandardArial,
-			arc is angular,
-			arc 					= 1 mm,
-			colback 			= gray!10,
-			colbacktitle  = gray,
-			coltitle      = white,
-			attach boxed title to top center =
-				{
-					yshift 			= -0.25 mm - \tcboxedtitleheight/2,
-					yshifttext 	= 2 mm - \tcboxedtitleheight/2
-				},
-			boxed title style =
-				{
-					boxrule = 0.5 mm,
-					frame code =
-						{
-							\path[fill=black]
-								([xshift = -4 mm]frame.west)
-								-- (frame.north west)
-								-- (frame.north east)
-								-- ([xshift=4mm]frame.east)
-								-- (frame.south east)
-								-- (frame.south west)
-								-- cycle;
-						},
-					interior code =
-						{
-							\path[tcb fill interior]
-								([xshift = -2 mm]interior.west)
-								-- (interior.north west)
-								-- (interior.north east)
-								-- ([xshift=2mm]interior.east)
-								-- (interior.south east)
-								-- (interior.south west)
-								-- cycle;
-
-						}
-				}
-	}
-
-% Homework
-\newenvironment{homeworks}
-	{
-		\begin{enumerate}
-			[
-				labelindent 	= 0 pt,
-				align 				= left,
-				labelwidth 		= 1.5 em,
-				labelsep 			= 0 em,
-				leftmargin 	 	= 1.5 em,
-				label 				= {\bf \arabic*.}
-				series 				= homeworks,
-				resume 				= homeworks
-			]
-	}
-	{
-		\end{enumerate}
-	}
-
 % multicolumn
 \RequirePackage{multicol}
 
 % column lines
 \RequirePackage[tikz]{multicolrule}
-\usetikzlibrary{calc}
-\usetikzlibrary{decorations.pathmorphing}
+	\usetikzlibrary{calc}
+	\usetikzlibrary{decorations.pathmorphing}
 \setlength{\columnsep}{2em}
+% wavelines
+%\SetMCRule{
+%		width 			= 0.5 pt,
+%		custom-line =
+%			{
+%				\draw
+%					[
+%						decorate,
+%						decoration = {coil, aspect = 0}
+%					](TOP) -- (BOT);
+%			}
+%	}
+
+% default lines
 \SetMCRule{
 		width 			= 0.5 pt,
-		custom-line =
-			{
-				\draw
-					[
-						decorate,
-						decoration = {coil, aspect = 0}
-					](TOP) -- (BOT);
-			}
 	}
-
-\RequirePackage{ float }
-
-% Pictures
-\RequirePackage{ graphicx }
-
-% caption Table
-\RequirePackage{ caption }
-	\captionsetup
-		{
-			labelsep 	= quad,
-			font 		 	= rm,
-			font 			= small,
-			aboveskip = 6 pt
-		}
-	\renewcommand{\thefigure}{\thechapter{}-\arabic{figure}}
-	\renewcommand{\thetable}{\thechapter{}-\arabic{table}}
-%	\captionsetup[table]{position = above}
 
 % chapter title
 \RequirePackage{ etoolbox }
@@ -470,12 +192,12 @@
 
 \renewcommand{\thesubsubsection}{题型\aracbic{subsubsection}}
 
-\titleformat{\subsubsection}
+\titleformat{name=\subsubsection,numberless}
 	{ \bfseries \large }
 	{}
 	{ 0em }
 	{
-		\begin{tcolorbox}
+		\begin{tcolorbox}%
 			[
 				nobeforeafter,
 				width 						= 0.5 \textwidth - 1 em,
@@ -525,7 +247,7 @@
 \RequirePackage{titletoc}
 \titlecontents{chapter}[1em]
 	{	\large \filcenter }
-	{	\bf \thecontentslabel	}
+	{	\bfseries \thecontentslabel	}
 	{}
 	{}
 	[
@@ -673,13 +395,333 @@
 \assignpagestyle{\chapter}{empty}
 
 
+% Column shape specialized training
+\newcommand{\specialtraining}[1]
+	{
+		\begin{center}
+			\begin{tikzpicture}
+				\node
+					[
+						cloud callout,
+						cloud puffs 		= 15,
+						aspect 					= 4.5,
+						cloud puff arc 	= 120,
+						draw,
+						text 						= black,
+						font 						= {\bfseries \Large},
+						shading 				= ball,
+						ball color 			= gray!20
+					]at (0,0){#1};
+			\end{tikzpicture}
+		\end{center}
+	}
+
+% list environments
+\RequirePackage{ enumitem }
+\setenumerate
+	{
+		itemsep 	= 0 pt,
+		partopsep = 0 pt,
+		parsep 		= \parskip,
+		topsep 		= 0 pt
+	}
+\setenumerate[2]
+	{
+		align 			=left,
+		label 			= ({\makebox[0.8 em]{\arrabic*}}),
+		labelwidth 	= 1.7 em,
+		labelsep 		= 0 em,
+		leftmargin 	= 1.7 em
+	}
+\setdescription
+	{
+		itemsep 	= 0 pt,
+		partopsep = 0 pt,
+		parsep 		= \parskip,
+		topsep 		= 0 pt
+	}
+
+% colors boxder macro
+\RequirePackage{tcolorbox}
+	\tcbuselibrary{ most }
+
+% Title Box real-width for needing
+\RequirePackage{ varwidth }
+
+% Learnning Objectives Box
+\newtcolorbox{LearnningObjectivesBox}[1][]
+	{
+		nobeforeafter,
+		valign = center,
+		enhanced,
+			width 				= 0.495 \textwidth,
+			bottom 				= 0 mm,
+			colback 			= white,
+			colframe 			= gray!70!black,
+			sharp corners = east,
+			arc is angular,
+			arc 					= 2 mm,
+			leftrule 			= 0 mm,
+			attach boxed title to top center =
+				{
+					xshift  = 0.29 cm,
+					yshift* = 1 mm - \tcboxedtitleheight
+				},
+			varwidth boxed title* = -3 cm,
+			boxed title style =
+				{
+					frame code =
+						{
+							\path[fill=gray!70!black]
+								([yshift = -1 mm, xshift = -1 mm]frame.north west)
+								arc[start angle = 0, end angle = 180, radius = 1 mm]
+								([yshift = -1 mm, xshift = 1 mm]frame.north east)
+								arc[start angle = 180, end angle = 0, radius = 1 mm];
+							\path[fill = gray!70!black]
+								([xshift = -2 mm]frame.north west)
+								-- ([xshift = 2 mm]frame.north east)[rounded corners = 1 mm]
+								-- ([xshift = 1 mm, yshift = -1 mm]frame.north east)
+								-- (frame.south east)
+								-- (frame.south west)
+								-- ([xshift = -1 mm, yshift = -1 mm]frame.north west)[sharp coners]
+								-- cycle;
+						},
+					interior engine = empty,
+				},
+			fonttitle = \zihao{4}\bfseries,
+			title 		= {学习目标},
+			height 		= #1 cm
+	}
+
+% LearnningObjectives particularize
+\newenvironment{learningtargets}
+	{
+		\begin{enumerate}
+			[
+				label 			= \arabic*.,
+				align 			= left,
+				labelindent = 0 em,
+				labelwidth  = 1 em,
+				labelsep  	= 0 em,
+				leftmargin 	= 1 em
+			]\StandardArial
+	}
+	{
+		\end{enumerate}
+	}
+
+% Key and Difficulty Box
+\newtcolorbox{KeyandDifficultyBox}[1][]
+	{
+		left skip 			= -1 mm,
+		nobeforeafter,
+		valign 					= center,
+		enhanced,
+			width 				= 0.495 \textwidth,
+			bottom 				= 0 mm,
+			colback 			= white,
+			colframe 			= gray!70!black,
+			sharp corners = west,
+			arc is angular,
+			arc 					= 2 mm,
+			rightrule 		= 0 mm,
+			attach boxed title to top center =
+				{
+					xshift  = 0.29cm,
+					yshift* = 1 mm - \tcboxedtitleheight
+				},
+			varwidth boxed title* = -3 cm,
+			boxed title style =
+				{
+					frame code =
+						{
+							\path[fill=gray!70!black]
+								([yshift = -1 mm, xshift = -1 mm]frame.north west)
+								arc[start angle = 0, end angle = 180, radius = 1 mm]
+								([yshift = -1 mm, xshift = 1 mm]frame.north east)
+								arc[start angle = 180, end angle = 0, radius = 1 mm];
+							\path[fill = gray!70!black]
+								([xshift = -2 mm]frame.north west)
+								-- ([xshift = 2 mm]frame.north east)[rounded corners = 1 mm]
+								-- ([xshift = 1 mm, yshift = -1 mm]frame.north east)
+								-- (frame.south east)
+								-- (frame.south west)
+								-- ([xshift = -1 mm, yshift = -1 mm]frame.north west)[sharp coners]
+								-- cycle;
+						},
+					interior engine = empty,
+				},
+			fonttitle = \zihao{4}\bfseries,
+			title 		= {重点难点},
+			height 		= #1 cm
+	}
+
+% KeyandDifficulties particularize
+\newenvironment{learningkeys}
+	{
+		\begin{description}
+			[
+				align 			= left,
+				labelindent = 0 em,
+				labelwidth  = 3 em,
+				labelsep  	= 0 em,
+				leftmargin 	= 1 em,
+				font 				= {\bfseries }
+			]\StandardArial
+	}
+	{
+		\end{description}
+	}
+
+% derivative
+\RequirePackage{ bbding }
+\newcounter{ derivatives }
+\newenvironment{DerivativeExamples}
+	{
+		\HandPencilLeft \fbox{ \bf\thesubsubsection 对接练习 }
+		\begin{enumerate}%
+			[
+				labelindent 	= 0 pt,
+				align 				= left,
+				labelwidth 		= 1 em,
+				labelsep 			= 0 em,
+				leftmargin 	= 1 em,
+				label = {\bf \arabic*.}
+			]
+	}
+	{
+		\end{enumerate}
+	}
+
+% thrm
+\newtcolorbox{Theorems}
+	{
+		enhanced,
+			breakable,
+			boxrule 			= 0.5 mm,
+			fonttitle     = {\bfseries \large}
+			title 				= {定理},
+			left 					= 0 pt,
+			top 					= 5 mm,
+			right  				= 0 mm,
+			bottom 				= 0 mm,
+			colframe 			= black,
+			parbox 				= false,
+			fontupper 		= \indent \StandardArial,
+			arc 					= 3 mm,
+			colback 			= gray!10,
+			coltitle      = black,
+			attach boxed title to top left =
+				{
+					xshift 			= 3 mm,
+					yshift 			= -\tcboxedtitleheight/2,
+				},
+			boxed title style =
+				{
+					sharp coners = uphill,
+					colback 		 = white,
+					arc 				 = 3mm,
+				}
+	}
+
+% generalize
+\newtcolorbox{MethodGeneralize}
+	{
+		enhanced,
+			breakable,
+			boxrule 			= 0.5 mm,
+			title 				= {\bf 方法归纳},
+			left 					= 0 pt,
+			top 					= 2 mm,
+			bottom 				= 0 mm,
+			colframe 			= black,
+			parbox 				= false,
+			fontupper 		= \indent \StandardArial,
+			arc is angular,
+			arc 					= 1 mm,
+			colback 			= gray!10,
+			colbacktitle  = gray,
+			coltitle      = white,
+			attach boxed title to top center =
+				{
+					yshift 			= -0.25 mm - \tcboxedtitleheight/2,
+					yshifttext 	= 2 mm - \tcboxedtitleheight/2
+				},
+			boxed title style =
+				{
+					boxrule = 0.5 mm,
+					frame code =
+						{
+							\path[fill=black]
+								([xshift = -4 mm]frame.west)
+								-- (frame.north west)
+								-- (frame.north east)
+								-- ([xshift=4mm]frame.east)
+								-- (frame.south east)
+								-- (frame.south west)
+								-- cycle;
+						},
+					interior code =
+						{
+							\path[tcb fill interior]
+								([xshift = -2 mm]interior.west)
+								-- (interior.north west)
+								-- (interior.north east)
+								-- ([xshift=2mm]interior.east)
+								-- (interior.south east)
+								-- (interior.south west)
+								-- cycle;
+
+						}
+				}
+	}
+
+% Homework
+\newenvironment{homeworks}
+	{
+		\begin{enumerate}%
+			[
+				labelindent 	= 0 pt,
+				align 				= left,
+				labelwidth 		= 1.5 em,
+				labelsep 			= 0 em,
+				leftmargin 	 	= 1.5 em,
+				label 				= {\bf \arabic*.}
+				series 				= homeworks,
+				resume 				= homeworks
+			]
+	}
+	{
+		\end{enumerate}
+	}
+
+\RequirePackage{ float }
+
+% Pictures
+\RequirePackage{ graphicx }
+
+% caption Table
+\RequirePackage{ caption }
+	\captionsetup
+		{
+			labelsep 	= quad,
+			font 		 	= rm,
+			font 			= small,
+			aboveskip = 6 pt
+		}
+	\renewcommand{\thefigure}{\thechapter{}-\arabic{figure}}
+	\renewcommand{\thetable}{\thechapter{}-\arabic{table}}
+%	\captionsetup[table]{position = above}
+
+
+
 % Examples environment
 \RequirePackage{fontawesome5}
 \newcounter{examplescounter}[section]
 \newenvironment{examples}
 	{
 		\refstepcounter{examplescounter}
-		\begin{enumerate}
+		\begin{enumerate}%
 		[
 			align 			= left,
 			labelindent = 0 em,
@@ -694,67 +736,6 @@
 	}
 	{\end{enumerate}}
 
-% Analysis environment
-\tcbset
-	{
-		analysisstyle/.style =
-		{
-			breakable,
-			enhanced,
-				colback = white,
-				colframe = white,
-				height = 1.7cm,
-				overlay =
-					{
-						\foreach \a in {-1.2, -2.8, -4.4}
-						\draw[dashed]([shift={(3.2em, \a em)}]frame.north west){\bf 解: };
-				}
-		}
-	}
-
-% prove environment
-\tcbset
-	{
-		provestyle/.style =
-		{
-			breakable,
-			enhanced,
-				colback = white,
-				colframe = white,
-				height = 1.7cm,
-				overlay =
-					{
-						\foreach \a in {-1.2, -2.8, -4.4}
-						\draw[dashed]([shift={(3.2em, \a em)}]frame.north west)
-							--([shift={(0 , \a em)}]frame.north east);
-						\node at ([shift = {(3.8em, -0.7em)}]frame.north west){\bf 证: };
-				}
-		}
-	}
-
-% assess environment
-\newenvironment{assess}
-	{
-		\begin{tcolorbox}
-			[
-				parbox 				= false,
-				before upper 	= \indent,
-				fontupper 		= \StandardArial,
-				breakable,
-				colback 			= white,
-				colframe 			= black,
-				leftrule 			= 1.5 pt,
-				rightrule 		= 0 mm,
-				bottomrule 		= 0 mm,
-				toprule 			= 0 mm,
-				arc 					= 0 mm,
-				top 					= 0 mm,
-				bottom 				= 0 mm,
-				left 					= 0 mm,
-				right 				= 0 mm
-			]{\bf 点评}~
-	}
-	{ \end{tcolorbox}}
 
 % contraposition
 \RequirePackage{hlist}
@@ -915,11 +896,11 @@
 	}
 
 % src
-\newcommand{\refquestion}[2]
+\newcommand{\refquestionsource}[2]
 	{
 		\textcolor{blue}{ \
 											{
-												\ifrefquestion
+												\ifanswer
 													{#1年#2}
 												\else
 													\hspace*{ -1 em }
@@ -928,13 +909,80 @@
 									}
 	}
 
-\newif\ifrefsource
-\newcommand{\refsource}[1]
+% Analysis environment
+\tcbset
 	{
-		\ifthenelse{\isodd{#1}}
-		{\refsourcetrue}
-		{}
+		analysis/.style =
+		{
+			invisible,
+			breakable,
+			enhanced,
+				colback = white,
+				colframe = white,
+				height = 1.7cm,
+				overlay =
+					{
+						\foreach \a in {-1.2, -2.8, -4.4}
+						\draw[dashed]([shift={(3.2 em, \a em)}]frame.north west)
+							-- ([shift={(0, \a em)}]frame.north east);
+						\node at ([shift={(3.8 em, -0.7 em)}]frame.north west){\bf 解: };
+					}
+		}
 	}
+
+% proof environment
+\tcbset
+	{
+		proof/.style =
+		{
+			breakable,
+			enhanced,
+				colback = white,
+				colframe = white,
+				height = 1.7cm,
+				overlay =
+					{
+						\foreach \a in {-1.2, -2.8, -4.4}
+						\draw[dashed]([shift={(3.2em, \a em)}]frame.north west)
+							--([shift={(0 , \a em)}]frame.north east);
+						\node at ([shift = {(3.8em, -0.7em)}]frame.north west){\bf 证: };
+				}
+		}
+	}
+
+% assess environment
+\tcbset
+	{
+		assess/.style =
+			{
+				parbox 				= false,
+				before upper 	= \indent,
+				fontupper 		= \StandardArial,
+				breakable,
+				colback 			= white,
+				colframe 			= black,
+				leftrule 			= 1.5 pt,
+				rightrule 		= 0 mm,
+				bottomrule 		= 0 mm,
+				toprule 			= 0 mm,
+				arc 					= 0 mm,
+				top 					= 0 mm,
+				bottom 				= 0 mm,
+				left 					= 0 mm,
+				right 				= 0 mm,
+				title 				= {\bf 点评}
+			}
+	}
+
+% analysis
+%\newcommand{analysis}[1]
+%	{
+%		\ifanswer
+%			\fawifi{\bfseries 解析}\, #1
+%		\else
+%			{\begin{tcolorbox}[analysis]\end{tcolorbox}}
+%		\fi
+%	}
 
 \AtBeginDocument
 	{
