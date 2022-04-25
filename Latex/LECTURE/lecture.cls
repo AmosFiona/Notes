@@ -61,6 +61,10 @@
 		headsep 		= 3.2 em,
 	}
 
+% colors boxder macro
+\RequirePackage{tcolorbox}
+	\tcbuselibrary{ most }
+
 % draw Pictures
 \RequirePackage{ tikz }
 \RequirePackage{ tikzpagenodes }
@@ -226,10 +230,23 @@
 
 \titleformat{\section}
 	{	\bf \Large \centering	}
-	{	\faBook ~ \thesection	}
+	{	\faBed ~ \thesection	}
 	{1 em}
 	{ #1 }
 	[]
+
+	% TODO:  <29-04-22, Amos-CXW-Fiona> %
+%\titleformat{\subsection}
+
+
+\definecolor{yingluo}{RGB}{212,172,191} % subsubsection + pink!70
+\definecolor{chenjiuhong}{RGB}{167,121,121} % Theorems
+\definecolor{fengwuhui}{RGB}{220,207,203} % Theorems back !30
+\definecolor{kongguyoulan}{RGB}{215,157,164} % header!55 footer!20
+\definecolor{jiaotangcheng}{RGB}{188,149,117} % learningkeys!80 learningtargets!80
+\definecolor{heikuli}{RGB}{196,122,155} % highlines by tcolorbox on line !10
+\definecolor{chahong}{RGB}{208,180,167} % Homework
+\definecolor{shanhufen}{RGB}{231,194,216} % analysis
 
 \renewcommand{\thesubsubsection}{题型\arabic{subsubsection}}
 \titleformat{\subsubsection}
@@ -246,14 +263,14 @@
 				top 							= 1 mm,
 				bottom 						= 1 mm,
 				boxrule 					= 0 mm,
-				colback 					= gray!79!black,
+				colback 					= yingluo,
 				sidebyside,
-				sidebyside gap 		= 1 mm,
-				lefthand ratio 		= 0.17,
+				sidebyside gap 		= 0.5 mm,
+				lefthand ratio 		= 0.2,
 				fontupper 				= \color{white},
 				enhanced,
 					bicolor,
-					colbacklower 		= gray!20,
+					colbacklower 		= pink!70,
 					halign 					= left
 			]\thesubsubsection \tcblower #1
 		\end{tcolorbox}
@@ -315,12 +332,12 @@
 		[
 			{
 				\begin{tikzpicture}[remember picture, overlay]
-					\fill[gray]([yshift = -1 mm]current page header area.south east)
+					\fill[kongguyoulan!55]([yshift = -1 mm]current page header area.south east)
 						-- (current page header area.north east)
 						--++ (-6 cm, 0)
 						-- ([xshift = -7 cm, yshift = -1 mm]current page header area.south east)
 						-- cycle;
-					\draw[gray,line width = 1 pt]([yshift = -1 mm]current page header area.south east)
+					\draw[kongguyoulan!55,line width = 1 pt]([yshift = -1 mm]current page header area.south east)
 						--([yshift = -1 mm]current page header area.south west);
 				\end{tikzpicture}
 				\thepage
@@ -329,12 +346,12 @@
 		{
 			\begin{tikzpicture}
 				[remember picture, overlay]
-					\fill[gray]([yshift = -1 mm]current page header area.south west)
+					\fill[kongguyoulan!55]([yshift = -1 mm]current page header area.south west)
 						-- (current page header area.north west)
 						--++ (6 cm, 0)
 						-- ([xshift = 7 cm, yshift = -1 mm]current page header area.south west)
 						-- cycle;
-					\draw[gray,line width = 1 pt]([yshift = -1 mm]current page header area.south west)
+					\draw[kongguyoulan!55,line width = 1 pt]([yshift = -1 mm]current page header area.south west)
 						--([yshift = -1 mm]current page header area.south east);
 						\end{tikzpicture}
 						\color{white}\ifthesection
@@ -348,12 +365,12 @@
 
 	\setfoot
 		[
-		高等数学~\rule[-0.4 mm]{0.2 em}{1 em}~重排
+			笔记重排~\rule[-0.4 mm]{0.2 em}{1 em}~设计 By 芳舒晴
 			\ifthechapter
 				{
 					{
 						\begin{tikzpicture}[remember picture, overlay]
-						\fill[gray!20]
+						\fill[kongguyoulan!20]
 							([yshift = -1.5 cm]current page footer area.south west)
 							rectangle (current page footer area.north east);
 						\node
@@ -363,7 +380,7 @@
 							]	at ([yshift = -2 em ]current page footer area.west)
 										{
 											\parbox{\textwidth - 5 mm}
-												{%
+												{
 													\CTEXindent	\zhlipsum[\thepage][name=logion]
 												}
 										};
@@ -374,7 +391,7 @@
 		][][]
 		{
 					\begin{tikzpicture}[remember picture, overlay]
-						\fill[gray!20]
+						\fill[kongguyoulan!20]
 							([yshift = -1.5 cm]current page footer area.south west)
 							rectangle (current page footer area.north east);
 						\node [ anchor = west,	font = \StandardArial ]
@@ -439,9 +456,6 @@
 		topsep 		= 0 pt
 	}
 
-% colors boxder macro
-\RequirePackage{tcolorbox}
-	\tcbuselibrary{ most }
 
 % Title Box real-width for needing
 \RequirePackage{ varwidth }
@@ -451,10 +465,10 @@
 	{
 		nobeforeafter,
 		valign = center,
-		width 				= 0.495 \textwidth,
+		width 				= 0.499 \textwidth,
 		bottom 				= 0 mm,
 		colback 			= white,
-		colframe 			= gray!70!black,
+		colframe 			= jiaotangcheng!70,
 		sharp corners = east,
 		arc is angular,
 		arc 					= 2 mm,
@@ -470,12 +484,12 @@
 				{
 					frame code =
 						{
-							\path[fill=gray!70!black]
+							\path[fill=magenta!70!yellow] % title back
 								([yshift = -1 mm, xshift = -1 mm]frame.north west)
 								arc[start angle = 0, end angle = 180, radius = 1 mm]
 								([yshift = -1 mm, xshift = 1 mm]frame.north east)
 								arc[start angle = 180, end angle = 0, radius = 1 mm];
-							\path[fill = gray!70!black]
+							\path[fill = jiaotangcheng!80]  % title front
 								([xshift = -2 mm]frame.north west)
 								-- ([xshift = 2 mm]frame.north east)[rounded corners = 1 mm]
 								-- ([xshift = 1 mm, yshift = -1 mm]frame.north east)
@@ -514,10 +528,10 @@
 		left skip 			= -1 mm,
 		nobeforeafter,
 		valign 					= center,
-		width 				= 0.495 \textwidth,
+		width 				= 0.499 \textwidth,
 		bottom 				= 0 mm,
 		colback 			= white,
-		colframe 			= gray!70!black,
+		colframe 			= jiaotangcheng!70,
 		sharp corners = west,
 		arc is angular,
 		arc 					= 2 mm,
@@ -533,12 +547,12 @@
 				{
 					frame code =
 						{
-							\path[fill=gray!70!black]
+							\path[fill=magenta!70!yellow] % title back
 								([yshift = -1 mm, xshift = -1 mm]frame.north west)
 								arc[start angle = 0, end angle = 180, radius = 1 mm]
 								([yshift = -1 mm, xshift = 1 mm]frame.north east)
 								arc[start angle = 180, end angle = 0, radius = 1 mm];
-							\path[fill = gray!70!black]
+							\path[fill = jiaotangcheng!80]
 								([xshift = -2 mm]frame.north west)
 								-- ([xshift = 2 mm]frame.north east)[rounded corners = 1 mm]
 								-- ([xshift = 1 mm, yshift = -1 mm]frame.north east)
@@ -576,10 +590,11 @@
 \newcounter{ derivatives }
 \newenvironment{DerivativeExamples}
 	{
-		\HandPencilLeft \fbox{ \bf\thesubsubsection 对接练习 }
+		\hspace*{-2.5 em}
+		\HandPencilLeft \quad \fbox{ \bfseries \thesubsubsection 对接练习 }
 		\begin{enumerate}%
 			[
-				labelindent 	= 0 pt,
+				labelindent 	= 0 mm,
 				align 				= left,
 				labelwidth 		= 1 em,
 				labelsep 			= 0 em,
@@ -602,11 +617,12 @@
 		right  				= 0 mm,
 		bottom 				= 0 mm,
 		boxrule 			= 0.5 mm,
-		title 				= {定理~\refstepcounter{thrmcounters}~\thethrmcounters~ $\blacktriangleright$ },
+		title 				= {\refstepcounter{thrmcounters}定理 \thesection.\thethrmcounters $\blacktriangleright$ },
+		%title 				= {\refstepcounter{thrmcounters} 定理 \thethrmcounters $\blacktriangleright$ },
 		coltitle      = white,   % title colors
 		fonttitle     = {\bfseries \large},
-		colframe 			= cyan,   % rule colors
-		colback 			= gray!10,
+		colframe 			= chenjiuhong,   % rule colors
+		colback 			= fengwuhui!30,
 		fontupper 		= \indent \StandardArial,
 		arc 					= 0 mm,
 		enhanced,
@@ -618,8 +634,8 @@
 			boxed title style =
 				{
 					sharp corners = uphill,
-					colback 		 = cyan, % titlebox colors
-					arc 				 = 1 mm,
+					colback 		 	= chenjiuhong, % titlebox colors
+					arc 				  = 1 mm,
 				}
 	}
 
@@ -670,9 +686,71 @@
 								-- (interior.south east)
 								-- (interior.south west)
 								-- cycle;
-
 						}
 				}
+	}
+
+\newtcolorbox{Homework}
+	{
+		breakable,
+		parbox 				= false,
+		before upper  = \indent,
+		boxrule 			= 0 mm,
+		title 				= {\bfseries \Large 练习题},
+		coltitle      = white,
+		left 					= 1 mm,
+		right 				= 1 mm,
+		bottom 				= 0 mm,
+		colback 			= white,
+		arc 					= 0 mm,
+		enhanced,
+			attach boxed title to top left =
+				{
+					yshift 			= -0.25 mm - \tcboxedtitleheight/2,
+					yshifttext 	= 1 mm - \tcboxedtitleheight/2
+				},
+			boxed title style =
+				{
+					boxrule 	= 0 mm,
+					arc 			= 0 mm,
+					top 			= 0 mm,
+					bottom 		= 0 mm,
+					colback 	= chahong,
+					colframe 	= chahong,
+					frame code =
+						{
+							\fill[chahong!20]
+								([xshift = 4.5 cm]frame.north west)
+								--++ (2.5 cm, 0)
+								--++ (0.5 cm, -1 em)
+								--++ (-0.5 cm, -1 em)
+								--++ (-2.5 cm, 0)
+								-- cycle;
+							\fill[chahong!50]
+								([xshift = 3 cm]frame.north west)
+								--++ (2.5 cm, 0)
+								--++ (0.5 cm, -1 em)
+								--++ (-0.5 cm, -1 em)
+								--++ (-2.5 cm, 0)
+								-- cycle;
+							\fill[chahong!70]
+								([xshift = 1.5 cm]frame.north west)
+								--++ (2.5 cm, 0)
+								--++ (0.5 cm, -1 em)
+								--++ (-0.5 cm, -1 em)
+								--++ (-2.5 cm, 0)
+								-- cycle;
+							\fill[chahong]
+								(frame.north west)
+								--++ (2.5 cm, 0)
+								--++ (0.5 cm, -1 em)
+								--++ (-0.5 cm, -1 em)
+								--++ (-2.5 cm, 0)
+								-- cycle;
+						},
+				},
+				borderline north = {1.5 pt}{0 pt}{chahong, dash pattern = on 8 pt off 4 pt},
+				borderline south = {1.5 pt}{0 pt}{chahong, dash pattern = on 8 pt off 4 pt},
 	}
 
 % Homework
@@ -712,8 +790,6 @@
 	\renewcommand{\thetable}{\thechapter{}-\arabic{table}}
 %	\captionsetup[table]{position = above}
 
-
-
 % Examples environment
 \RequirePackage{fontawesome5}
 \newcounter{examplescounter}[section]
@@ -724,10 +800,7 @@
 		[
 			align 			= left,
 			labelindent = 0 em,
-			label =
-			{
-				\bf \faCogs 例{\theexamplescounter}
-			},
+			label 			=	{	\bfseries \faCogs 例\theexamplescounter },
 			labelwidth 	= 3.8 em,
 			labelsep  	= 0 mm,
 			leftmargin 	= 3.8 em
@@ -735,31 +808,8 @@
 	}
 	{\end{enumerate}}
 
-
 % contraposition
 \RequirePackage{hlist}
-
-% for choice-questions
-%\newenvironment{options}[6][4]
-%	{
-%		\begin{hlist}%
-%			[
-%				pre skip 		= 0 pt,
-%				post skip 	= 0 pt,
-%				label 			= \Alph{hlisti}.,
-%				pre label 	= {},
-%				item offset = 1.2 em,
-%				col sep 		= 0.5 em
-%			]#1
-%			\hitem #2
-%			\hitem #3
-%			\hitem #4
-%			\hitem #5
-%			\hitem #6
-%	}
-%	{
-%		\end{hlist}
-%	}
 
 \RequirePackage{ifthen}
 
@@ -898,21 +948,17 @@
 % src
 \newcommand{\refquestionsource}[2]
 	{
-		\textcolor{blue}{ \
-											{
+		\textcolor{blue}{
 												\ifanswer
-													{#1年#2}
+												{(#1年#2)\hspace*{-1 em}}
 												\else
 													\hspace*{ -1 em }
 												\fi
-											} \
-									}
+										}
 	}
 
-% Analysis environment
-\tcbset
-	{
-		analysis/.style =
+% analysisLines environment
+\newtcolorbox{answerlines}[1][]
 		{
 			invisible,
 			breakable,
@@ -925,157 +971,87 @@
 						\foreach \a in {-1.2, -2.8, -4.4}
 						\draw[dashed]([shift={(3.2 em, \a em)}]frame.north west)
 							-- ([shift={(0, \a em)}]frame.north east);
-						\node at ([shift={(3.8 em, -0.7 em)}]frame.north west){\bf 解: };
+						\node(title) at ([shift={(3.8 em, -0.7 em)}]frame.north west){\bfseries #1: };
 					}
 		}
-	}
 
-% proof environment
-\tcbset
-	{
-		proof/.style =
-		{
-			invisible,
-			breakable,
-			colback = white,
-			colframe = white,
-			height = 1.7cm,
-			enhanced,
-				overlay =
-					{
-						\foreach \a in {-1.2, -2.8, -4.4}
-						\draw[dashed]([shift={(3.2em, \a em)}]frame.north west)
-							--([shift={(0 , \a em)}]frame.north east);
-						\node at ([shift = {(3.8em, -0.7em)}]frame.north west){\bf 证: };
-					}
-		}
-	}
-
-% assess environment
-%\tcbset
-%	{
-%		assess/.style =
-%			{
-%				parbox 				= false,
-%				before upper 	= \indent,
-%				fontupper 		= \StandardArial,
-%				breakable,
-%				colback 			= white,
-%				colframe 			= black,
-%				leftrule 			= 1.5 pt,
-%				rightrule 		= 0 mm,
-%				bottomrule 		= 0 mm,
-%				toprule 			= 0 mm,
-%				arc 					= 0 mm,
-%				top 					= 0 mm,
-%				bottom 				= 0 mm,
-%				left 					= 0 mm,
-%				right 				= 0 mm,
-%				title 				= {\bf 点评}
-%			}
-%	}
-\tcbset
-	{
-		assess/.style =
-		{
-			invisible,
-			breakable,
-			colback = white,
-			colframe = white,
-			height = 1.7cm,
-			enhanced,
-				overlay =
-					{
-						\foreach \a in {-1.2, -2.8, -4.4}
-						\draw[dashed]([shift={(3.2em, \a em)}]frame.north west)
-							--([shift={(0 , \a em)}]frame.north east);
-						\node at ([shift = {(3.8em, -0.7em)}]frame.north west){\bf 注: };
-					}
-		}
-	}
+\newtcolorbox{answerbox}[1][]
+						{
+							breakable,
+							arc 			= 0 mm,
+							colback 	= shanhufen!20!white,
+							boxrule 	= 0 pt,
+							top 			= 6 mm,
+							fontupper = \normalsize,
+							enhanced,
+								overlay unbroken =
+									{
+										\draw[color = shanhufen, line width = 2 pt]
+											([xshift = 2 pt]frame.north west)	-- ([xshift = 2 pt]frame.south west);
+										\node(title) at ([xshift = 2 em, yshift = -1 em]frame.north west)
+											{ \bfseries {\color{shanhufen} #1} };
+									},
+								overlay first =
+									{
+										\draw[color = shanhufen, line width = 2 pt]
+											([xshift = 2 pt]frame.north west) -- ([xshift = 2 pt]frame.south west);
+										\node(title) at ([xshift = 4.5 pt, yshift = -2 em]frame.north west)
+											{ \bfseries {\color{shanhufen} #1} };
+									},
+								overlay last =
+									{
+										\draw[color = shanhufen, line width = 2 pt]
+											([xshift = 2 pt]frame.north west) -- ([xshift = 2 pt]frame.south west);
+									}
+						}
 
 % Onekey for analysis, assess and proof
-\RequirePackage{comment}
-
 \newenvironment{PROBLEMANSWERS}
 	{
 		\ifanswer
 			\newenvironment{Analysis}
-			 	{
-			 		\par
-			 		{\bfseries 解析:} \quad
-			 	}
-			 {\par}
+				{ \begin{answerbox}[解析] }
+				{ \end{answerbox} }
 
 			\newenvironment{Proof}
-			 	{
-			 		\par
-			 		{\bfseries 证明:} \quad
-			 	}
-			 {\par}
+				{ \begin{answerbox}[证明] }
+				{ \end{answerbox} }
 
 			\newenvironment{Assess}
-			 	{
-			 		\par
-			 		{\bfseries 点评:} \quad
-			 	}
-			 	{\par}
+				{ \begin{answerbox}[评注] }
+				{ \end{answerbox} }
 		\else
-
 			\newenvironment{Analysis}
-			 	{
-			 		\par
-			 		{\bfseries 解析:} \quad
-			 	}
-			 	{\par}
-			\specialcomment{Analysis}
-				{
-					\begin{tcolorbox}[analysis]
-				}
-				{
-					\end{tcolorbox}
-				}
+				{ \begin{answerlines}[解] }
+				{	\end{answerlines} }
 
 			\newenvironment{Proof}
-			 	{
-			 		\par
-			 		{\bfseries 证明:} \quad
-			 	}
-			 	{\par}
-			\specialcomment{Proof}
-				{
-					\begin{tcolorbox}[proof]
-				}
-				{
-					\end{tcolorbox}
-				}
+				{ \begin{answerlines}[证] }
+				{	\end{answerlines} }
 
 			\newenvironment{Assess}
-			 	{
-			 		\par
-			 		{\bfseries 点评:} \quad
-			 	}
-			 	{\par}
-			\specialcomment{Assess}
-				{
-					\begin{tcolorbox}[assess]
-				}
-				{
-					\end{tcolorbox}
-				}
+				{ \begin{answerlines}[注] }
+				{	\end{answerlines} }
 		\fi
 	}
 	{}
 
-% analysis
-%\newcommand{analysis}[1]
-%	{
-%		\ifanswer
-%			\fawifi{\bfseries 解析}\, #1
-%		\else
-%			{\begin{tcolorbox}[analysis]\end{tcolorbox}}
-%		\fi
-%	}
+\newtcbox{\hl}[1][heikuli]
+	{
+		on line,
+		arc 				= 0 pt,
+		outer arc 	= 0 pt,
+		colback 		= #1!30!white,
+		colframe 		= #1!90!black,
+		boxsep 			= 0 pt,
+		left 				= 1 pt,
+		right 			= 1 pt,
+		top 				= 1.5 pt,
+		bottom 			= 1.5 pt,
+		boxrule 		= 0 pt,
+		bottomrule 	= 1 pt,
+		toprule 		= 1 pt
+	}
 
 \AtBeginDocument
 	{
