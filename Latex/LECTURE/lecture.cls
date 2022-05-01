@@ -99,6 +99,10 @@
 % chapter title
 \RequirePackage{ etoolbox }
 
+% Roman numbers
+\newcommand{\rmn}[1]{\romannumeral #1}
+\newcommand{\Rmn}[1]{\uppercase\expandafter{\romannumeral #1}}
+
 % textcircled   must be less 999
 \newlength\szg
 \newcommand\quan[1]
@@ -237,7 +241,20 @@
 
 	% TODO:  <29-04-22, Amos-CXW-Fiona> %
 %\titleformat{\subsection}
-
+\titleformat{\subsection}
+	{\normalfont\LARGE\bfseries\raggedright}
+	{}
+	{-0.2em}
+	{
+		\begin{tikzpicture}[remember picture]
+		\fill[xshift = -4 mm, yshift = -4.5 mm, yingluo!20!pink] (0, 0) rectangle (1.2, 0.02);
+		\fill[xshift = -4 mm, yshift = -4.5 mm, yingluo!20!pink] (0, 0.2) rectangle (1.2, 0.7);
+		\fill[thick, yingluo!40!pink, xshift = -4 mm, yshift = -4.5 mm] (14 mm, 0) -- (14 mm,0.7 mm) -- (14.7 mm, 1.5 mm) -- (\textwidth-1 mm, 1.5 mm) -- (\textwidth-1 mm, 0) -- cycle;
+		\node[right] at (10 mm,0) {\color{yingluo!40!pink}#1};
+		\node at (0.17,0) {\color{kongguyoulan}\thesection};
+		\end{tikzpicture}
+		\vspace*{-1cm}
+	}
 
 \definecolor{yingluo}{RGB}{212,172,191} % subsubsection + pink!70
 \definecolor{chenjiuhong}{RGB}{167,121,121} % Theorems
@@ -266,7 +283,7 @@
 				colback 					= yingluo,
 				sidebyside,
 				sidebyside gap 		= 0.5 mm,
-				lefthand ratio 		= 0.2,
+				lefthand ratio 		= 0.1,
 				fontupper 				= \color{white},
 				enhanced,
 					bicolor,
@@ -639,6 +656,58 @@
 				}
 	}
 
+% thrmequations
+\newcounter{thrmequationscounters}[section]
+\newtcolorbox{thrmequations}[1][]
+	{
+		breakable,
+		parbox 				= false,
+		left 					= 0 pt,
+		top 					= 5 mm,
+		right  				= 0 mm,
+		bottom 				= 0 mm,
+		boxrule 			= 0.5 mm,
+		title 				= {#1公式  $\blacktriangleright$ },
+		coltitle      = white,   % title colors
+		fonttitle     = {\bfseries \large},
+		colframe 			= chenjiuhong,   % rule colors
+		colback 			= fengwuhui!30,
+		fontupper 		= \StandardArial,
+		arc 					= 0 mm,
+		enhanced,
+			attach boxed title to top left =
+				{
+					xshift 			= 3 mm,
+					yshift 			= -\tcboxedtitleheight/2,
+				},
+			boxed title style =
+				{
+					sharp corners = uphill,
+					colback 		 	= chenjiuhong, % titlebox colors
+					arc 				  = 1 mm,
+				}
+	}
+% thrmEqs
+\newenvironment{thrmEqs}[1][]
+{
+	\begin{thrmequations}[#1]
+		\begin{enumerate}%
+			[
+				labelindent 	= 0 pt,
+				align 				= left,
+				labelwidth 		= 1.5 em,
+				labelsep 			= 0 em,
+				leftmargin 	 	= 1.5 em,
+				label 				= {\bf \arabic*.},
+				series 				= homeworks,
+				resume 				= homeworks
+			]
+	}
+	{
+		\end{enumerate}
+		\end{thrmequations}
+	}
+
 % generalize
 \newtcolorbox{MethodGeneralize}
 	{
@@ -690,7 +759,7 @@
 				}
 	}
 
-\newtcolorbox{Homework}
+\newtcolorbox{HomeworkBox}
 	{
 		breakable,
 		parbox 				= false,
@@ -755,7 +824,8 @@
 
 % Homework
 \newenvironment{homeworks}
-	{
+{
+	\begin{HomeworkBox}
 		\begin{enumerate}%
 			[
 				labelindent 	= 0 pt,
@@ -770,6 +840,7 @@
 	}
 	{
 		\end{enumerate}
+		\end{HomeworkBox}
 	}
 
 \RequirePackage{ float }
@@ -912,7 +983,7 @@
 							\hitem #4
 							\hitem #5
 							\ifnum #1>4
-							\hitem #6
+								\hitem #6
 							\fi
 						\end{hlist}
 					}
@@ -950,7 +1021,7 @@
 	{
 		\textcolor{blue}{
 												\ifanswer
-												{(#1年#2)\hspace*{-1 em}}
+												{(#1,#2)\hspace*{-1 em}}
 												\else
 													\hspace*{ -1 em }
 												\fi
@@ -1090,5 +1161,6 @@
 		\endgroup
 		\mathcode`\;="8000
 	}
+\RequirePackage{hyperref}
 
 \endinput
